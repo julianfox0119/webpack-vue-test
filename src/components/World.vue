@@ -1,17 +1,20 @@
 <template>
   <div class="world">
     <h2>{{msg}}</h2>
-    <SubWorld></SubWorld>
+    <SubWorld message="test props!"></SubWorld>
+    <Counter></Counter>
   </div>
 </template>
 
 <script>
 import SubWorld from './SubWorld'
+import Counter from './Counter'
 
 export default {
   name: 'world',
   components: {
-    SubWorld
+    SubWorld,
+    Counter
   },
   data () {
     return {
