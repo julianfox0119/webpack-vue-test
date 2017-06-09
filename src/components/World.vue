@@ -1,12 +1,18 @@
 <template>
   <div class="world">
-    <h2>Hello World!</h2>
+    <h2>{{msg}}</h2>
+    <SubWorld></SubWorld>
   </div>
 </template>
 
 <script>
+import SubWorld from './SubWorld'
+
 export default {
   name: 'world',
+  components: {
+    SubWorld
+  },
   data () {
     return {
       msg: 'Hello World'
