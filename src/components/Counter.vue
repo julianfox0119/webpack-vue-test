@@ -1,7 +1,7 @@
 <template>
     <div id="counter">
-        <button @click="increase">增加 1</button>
         <p>这个按钮被点击了 {{ counter }} 次。</p>
+        <el-button type="primary" @click="increase">增加 1</el-button>
     </div>
 </template>
 
