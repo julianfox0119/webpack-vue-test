@@ -1,9 +1,17 @@
 <template>
-  <div class="world">
-    <h2>{{msg}}</h2>
-    <SubWorld message="test props!"></SubWorld>
-    <Counter></Counter>
-  </div>
+  <el-row :gutter="20">
+    <el-col :span="6">
+      <div class="world">
+        <h2>{{msg}}</h2>              
+      </div>
+    </el-col>
+    <el-col :span="6">
+      <SubWorld message="test props!"></SubWorld>
+    </el-col>
+    <el-col :span="6">
+      <Counter></Counter>
+    </el-col>
+  </el-row>
 </template>
 
 <script>
