@@ -1,7 +1,7 @@
 <template>
     <div class='weather' v-if="weatherInfo">
-        <div><h3>{{weatherInfo.currentCity}} | pm2.5-{{weatherInfo.pm25}}</h3></div>   
-        <el-row :gutter="10">
+        <div><h3>{{weatherInfo.currentCity}} | pm2.5-{{weatherInfo.pm25}} | {{weatherInfo.weather_data.length}}</h3></div>   
+        <el-row type="flex" class="row-bg" justify="center" >
             <el-col :span="3" v-for="item in weatherInfo.weather_data" :key="item.id" class='detail'>
                 <p title="详情" class='date'>{{item.date.slice(0,10)}}</p>
                 <p>
