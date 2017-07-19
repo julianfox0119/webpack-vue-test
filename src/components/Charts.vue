@@ -61,6 +61,12 @@ export default {
         {value: 234, name: '联盟广告'},
         {value: 135, name: '视频广告'},
         {value: 1549, name: '搜索引擎'}
+      ],
+      opinion1: [ '直接访问', '邮件营销', '联盟广告' ],
+      opinionData1: [
+        {value: 335, name: '直接访问'},
+        {value: 310, name: '邮件营销'},
+        {value: 234, name: '联盟广告'}
       ]
     }
   },
@@ -68,15 +74,14 @@ export default {
     setquater () {
       console.log(this)
     },
-
     handleCommand () {
-      // this.drawPie('chart')
+      this.drawPie('chart', this.opinion1, this.opinionData1)
       // this.filters = command
-      console.log(this.value5)
     },
-
-    drawPie (id) {
-      this.charts = echarts.init(document.getElementById(id))
+    drawPie (id, opinion, opinionData) {
+      if (!this.charts) {
+        this.charts = echarts.init(document.getElementById(id))
+      }
       this.charts.setOption({
         tooltip: {
           trigger: 'item',
@@ -85,7 +90,7 @@ export default {
         legend: {
           orient: 'vertical',
           x: 'left',
-          data: this.opinion
+          data: opinion
         },
         series: [
           {
@@ -111,18 +116,18 @@ export default {
                 show: false
               }
             },
-            data: this.opinionData
+            data: opinionData
           }
         ]
       })
     }
-  }
+  },
 
-  // mounted () {
-  //   this.$nextTick(function () {
-  //     this.drawPie('chart')
-  //   })
-  // }
+  mounted () {
+    this.$nextTick(function () {
+      this.drawPie('chart', this.opinion, this.opinionData)
+    })
+  }
 }
 </script>
 
