@@ -2,6 +2,7 @@
   <div id="header">
     <img src="../assets/logo.png">
     <ul>
+        <li><a href="/">Home</a></li>
         <li><a href="/world">Hello World</a></li>
         <li><a href="/resource">Get Resource</a></li>
         <li><a href="/charts">Get Charts</a></li>
