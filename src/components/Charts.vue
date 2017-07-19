@@ -1,14 +1,39 @@
 <template>
     <div id="chart_container"> 
-      <el-dropdown @command="handleCommand" trigger="click">
+      <!-- <el-dropdown @command="handleCommand" trigger="click">
         <span class="el-dropdown-link">
-          下拉菜单<i class="el-icon-caret-bottom el-icon--right"></i>
+          Time Scope<i class="el-icon-caret-bottom el-icon--right"></i>
         </span>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item command="a">Chart1</el-dropdown-item>
-          <el-dropdown-item command="b">Chart2</el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
+         <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item command="a">Years</el-dropdown-item>
+          <el-dropdown-item command="b">Quarters</el-dropdown-item>
+        </el-dropdown-menu> 
+      </el-dropdown> -->
+      <!-- <div id="yearFilter" v-if="filters === 'a'">
+        <div class="block">
+          <span class="demonstration">年</span>
+          <el-date-picker
+            v-model="value5"
+            align="right"
+            type="year"
+            placeholder="选择年">
+          </el-date-picker>
+        </div>
+      </div>
+      <div id="quaterFilter" v-if="filters === 'b'">Quarters</div> -->
+      <div id="yearFilter">
+        <div class="block">
+          <span class="demonstration">年</span>
+          <el-date-picker
+            v-model="value5"
+            @change="handleCommand"
+            align="right"
+            type="year"
+            placeholder="选择年">
+          </el-date-picker>
+        </div>
+      </div>
+      <div id="quaterFilter" v-if="value5">Quarters</div>
       <div id="chart" class="chartCanvas"></div>
     </div>
 </template>
@@ -20,6 +45,8 @@ export default {
   name: 'charts',
   data () {
     return {
+      value5: '',
+      filters: '',
       charts: '',
       opinion: [ '直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎' ],
       opinionData: [
@@ -32,8 +59,10 @@ export default {
     }
   },
   methods: {
-    handleCommand (command) {
-      this.drawPie('chart')
+    handleCommand () {
+      // this.drawPie('chart')
+      // this.filters = command
+      console.log(this.value5)
     },
 
     drawPie (id) {
