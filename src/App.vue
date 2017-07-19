@@ -1,18 +1,19 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <ul>
-      <li><a href="/world">Hello World</a></li>
-      <li><a href="/resource">Get Resource</a></li>
-      <li><a href="/charts">Get Charts</a></li>
-    </ul>
+    <Header></Header>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+import Header from './components/Header'
+
 export default {
-  name: 'app'
+  name: 'app',
+  components: {
+    Header
+  }
 }
 </script>
 
@@ -27,22 +28,3 @@ export default {
 }
 </style>
 
-<style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
-</style>
