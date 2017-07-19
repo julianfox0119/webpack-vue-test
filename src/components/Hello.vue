@@ -2,11 +2,6 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <h2>Router Test Links</h2>
-    <ul>
-      <li><a href="/world">Hello World</a></li>
-      <li><a href="/resource">Get Resource</a></li>
-      <li><a href="/charts">Get Charts</a></li>
-    </ul>
   </div>
 </template>
 
