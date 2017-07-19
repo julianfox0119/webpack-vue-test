@@ -13,6 +13,7 @@
                 <p>{{item.temperature}}</p>
             </el-col>
         </el-row>
+        <Counter></Counter>
     </div>
     <p id="preloader_1" v-else>
         no data available!
@@ -20,8 +21,13 @@
 </template>
 
 <script>
+import Counter from './Counter'
+
 export default {
   name: 'resource',
+  components: {
+    Counter
+  },
   data () {
     return {
       url: 'http://api.map.baidu.com/telematics/v3/weather?location=北京&output=json&ak=HGOUnCXeQLEeywhGOu2jU29PFdC6duFF',
