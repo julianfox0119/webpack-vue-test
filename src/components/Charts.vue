@@ -1,5 +1,16 @@
 <template>
-    <div id="chart"></div>
+    <div id="chart_container"> 
+      <el-dropdown @command="handleCommand" trigger="click">
+        <span class="el-dropdown-link">
+          下拉菜单<i class="el-icon-caret-bottom el-icon--right"></i>
+        </span>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item command="a">Chart1</el-dropdown-item>
+          <el-dropdown-item command="b">Chart2</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+      <div id="chart" class="chartCanvas"></div>
+    </div>
 </template>
 
 <script>
@@ -21,6 +32,10 @@ export default {
     }
   },
   methods: {
+    handleCommand (command) {
+      this.drawPie('chart')
+    },
+
     drawPie (id) {
       this.charts = echarts.init(document.getElementById(id))
       this.charts.setOption({
@@ -62,22 +77,22 @@ export default {
         ]
       })
     }
-  },
-
-  mounted () {
-    this.$nextTick(function () {
-      this.drawPie('chart')
-    })
   }
+
+  // mounted () {
+  //   this.$nextTick(function () {
+  //     this.drawPie('chart')
+  //   })
+  // }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-div{
+.chartCanvas{
   width: 600px;
   height: 400px;
   margin: 0 auto;
-  text-align: center; 
+  text-align: center;  
 }
 </style>
