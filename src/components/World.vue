@@ -1,14 +1,14 @@
 <template>
   <el-row :gutter="20">
-    <el-col :span="6">
+    <el-col :span="8">
       <div class="world">
         <h2>{{msg}}</h2>              
       </div>
     </el-col>
-    <el-col :span="6">
+    <el-col :span="8">
       <SubWorld message="test props!"></SubWorld>
     </el-col>
-    <el-col :span="6">
+    <el-col :span="8">
       <Counter></Counter>
     </el-col>
   </el-row>
