@@ -33,7 +33,13 @@
           </el-date-picker>
         </div>
       </div>
-      <div id="quaterFilter" v-if="value5">Quarters</div>
+      <div id="quaterFilter" v-if="value5">
+         <!-- todo: using radio button instead  -->
+         <!-- <el-button type="primary" @click="setquater">Quater 1</el-button>
+         <el-button type="primary" @click="setquater">Quater 2</el-button>
+         <el-button type="primary" @click="setquater">Quater 3</el-button>
+         <el-button type="primary" @click="setquater">Quater 4</el-button> -->
+      </div>
       <div id="chart" class="chartCanvas"></div>
     </div>
 </template>
@@ -59,6 +65,10 @@ export default {
     }
   },
   methods: {
+    setquater () {
+      console.log(this)
+    },
+
     handleCommand () {
       // this.drawPie('chart')
       // this.filters = command
