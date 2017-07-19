@@ -1,32 +1,11 @@
 <template>
     <div id="chart_container"> 
-      <!-- <el-dropdown @command="handleCommand" trigger="click">
-        <span class="el-dropdown-link">
-          Time Scope<i class="el-icon-caret-bottom el-icon--right"></i>
-        </span>
-         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item command="a">Years</el-dropdown-item>
-          <el-dropdown-item command="b">Quarters</el-dropdown-item>
-        </el-dropdown-menu> 
-      </el-dropdown> -->
-      <!-- <div id="yearFilter" v-if="filters === 'a'">
-        <div class="block">
-          <span class="demonstration">年</span>
-          <el-date-picker
-            v-model="value5"
-            align="right"
-            type="year"
-            placeholder="选择年">
-          </el-date-picker>
-        </div>
-      </div>
-      <div id="quaterFilter" v-if="filters === 'b'">Quarters</div> -->
       <div id="yearFilter">
         <div class="block">
           <span class="demonstration">年</span>
           <el-date-picker
             v-model="year"
-            @change="handleCommand"
+            @change="handleYear"
             align="right"
             type="year"
             placeholder="选择年">
@@ -35,7 +14,7 @@
       </div>
       <div id="quaterFilter" v-if="year">
           <div style="margin: 15px 0;"></div>
-          <el-checkbox-group v-model="checkboxGroup1">
+          <el-checkbox-group v-model="checkboxGroup1" @change="handleQuater">
             <el-checkbox-button v-for="quater in quaters" :label="quater" :key="quater">{{quater}}</el-checkbox-button>
           </el-checkbox-group>
       </div>
@@ -65,11 +44,18 @@ export default {
         {value: 135, name: '视频广告'},
         {value: 1549, name: '搜索引擎'}
       ],
-      opinion1: [ '直接访问', '邮件营销', '联盟广告' ],
-      opinionData1: [
+      opinion2: [ '直接访问', '邮件营销', '联盟广告' ],
+      opinionData2: [
         {value: 335, name: '直接访问'},
         {value: 310, name: '邮件营销'},
         {value: 234, name: '联盟广告'}
+      ],
+      opinion1: [ '直接访问', '邮件营销', '联盟广告', '搜索引擎' ],
+      opinionData1: [
+        {value: 335, name: '直接访问'},
+        {value: 310, name: '邮件营销'},
+        {value: 234, name: '联盟广告'},
+        {value: 1549, name: '搜索引擎'}
       ]
     }
   },
@@ -77,8 +63,12 @@ export default {
     setquater () {
       console.log(this)
     },
-    handleCommand () {
+    handleYear () {
       this.drawPie('chart', this.opinion1, this.opinionData1)
+      // this.filters = command
+    },
+    handleQuater () {
+      this.drawPie('chart', this.opinion2, this.opinionData2)
       // this.filters = command
     },
     drawPie (id, opinion, opinionData) {
@@ -140,6 +130,7 @@ export default {
   width: 600px;
   height: 400px;
   margin: 0 auto;
+  padding-top: 40px;
   text-align: center;  
 }
 </style>
