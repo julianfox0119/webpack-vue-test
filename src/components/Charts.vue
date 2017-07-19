@@ -25,7 +25,7 @@
         <div class="block">
           <span class="demonstration">年</span>
           <el-date-picker
-            v-model="value5"
+            v-model="year"
             @change="handleCommand"
             align="right"
             type="year"
@@ -33,12 +33,11 @@
           </el-date-picker>
         </div>
       </div>
-      <div id="quaterFilter" v-if="value5">
-         <!-- todo: using radio button instead  -->
-         <!-- <el-button type="primary" @click="setquater">Quater 1</el-button>
-         <el-button type="primary" @click="setquater">Quater 2</el-button>
-         <el-button type="primary" @click="setquater">Quater 3</el-button>
-         <el-button type="primary" @click="setquater">Quater 4</el-button> -->
+      <div id="quaterFilter" v-if="year">
+          <div style="margin: 15px 0;"></div>
+          <el-checkbox-group v-model="checkboxGroup1">
+            <el-checkbox-button v-for="quater in quaters" :label="quater" :key="quater">{{quater}}</el-checkbox-button>
+          </el-checkbox-group>
       </div>
       <div id="chart" class="chartCanvas"></div>
     </div>
@@ -47,13 +46,17 @@
 <script>
 import echarts from 'echarts'
 
+const quaterOptions = ['第一季度', '第二季度', '第三季度', '第四季度']
+
 export default {
   name: 'charts',
   data () {
     return {
-      value5: '',
+      year: '',
       filters: '',
       charts: '',
+      checkboxGroup1: [],
+      quaters: quaterOptions,
       opinion: [ '直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎' ],
       opinionData: [
         {value: 335, name: '直接访问'},
