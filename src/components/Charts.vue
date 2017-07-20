@@ -192,6 +192,8 @@ export default {
       if (this.year) {
         this.drawChart('chart', seriesData1)
       } else {
+        this.yearScope = false
+        this.quaterSelection = false
         this.drawChart('chart', seriesData)
       }
     },
