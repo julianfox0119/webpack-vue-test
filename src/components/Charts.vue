@@ -277,6 +277,9 @@ export default {
             data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
           },
           toolbox: {
+            orient: 'vertical',
+            itemSize: 10,
+            right: '5%',
             feature: {
               saveAsImage: {}
             }
