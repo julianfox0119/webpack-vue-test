@@ -277,9 +277,8 @@ export default {
             data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
           },
           toolbox: {
-            orient: 'vertical',
-            itemSize: 10,
-            right: '5%',
+            orient: 'horizontal',
+            right: 'auto',
             feature: {
               saveAsImage: {}
             }
@@ -297,44 +296,44 @@ export default {
             }
           ],
           series: myseriesData
-        },
-        media: [
-          {
-            option: {
-              legend: {
-                orient: 'vertical'
-              }
-            }
-          },
-          {
-            query: {
-              minWidth: 600
-            },
-            option: {
-              legend: {
-                top: '5%',
-                left: '0',
-                itemWidth: 10,
-                itemHeight: 10,
-                orient: 'vertical'
-              },
-              grid: {
-                top: '5%',
-                left: '20%'
-              }
-            }
-          },
-          {
-            query: {
-              maxWidth: 600
-            },
-            option: {
-              legend: {
-                orient: 'horizontal'
-              }
-            }
-          }
-        ]
+        }
+        // media: [
+        //   {
+        //     option: {
+        //       legend: {
+        //         orient: 'vertical'
+        //       }
+        //     }
+        //   },
+        //   {
+        //     query: {
+        //       minWidth: 600
+        //     },
+        //     option: {
+        //       legend: {
+        //         top: '5%',
+        //         left: '0',
+        //         itemWidth: 10,
+        //         itemHeight: 10,
+        //         orient: 'vertical'
+        //       },
+        //       grid: {
+        //         top: '5%',
+        //         left: '20%'
+        //       }
+        //     }
+        //   },
+        //   {
+        //     query: {
+        //       maxWidth: 600
+        //     },
+        //     option: {
+        //       legend: {
+        //         orient: 'horizontal'
+        //       }
+        //     }
+        //   }
+        // ]
       })
     }
   },
@@ -350,11 +349,13 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .chartCanvas{
+  width: 630px;
+  height: 400px;
   margin: 0 auto;
   padding-top: 40px;
   text-align: center;  
 }
-@media (min-width: 600px) {
+/* @media (min-width: 600px) {
   .chartCanvas{
     width: 630px;
     height: 400px;
@@ -365,7 +366,7 @@ export default {
     width: 330px;
     height: 400px;
   }
-}
+} */
 .inline-block{
   display:inline-block;
 }
