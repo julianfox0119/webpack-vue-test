@@ -192,7 +192,7 @@ export default {
       this.quaterSelection = true
       this.checkboxGroup1 = []
       if (this.year) {
-        this.drawChart('chart', seriesData1, yearOptions)
+        this.drawChart('chart', seriesData2, quaterOptions)
       } else {
         this.yearScope = false
         this.quaterSelection = false
