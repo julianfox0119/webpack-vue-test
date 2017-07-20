@@ -263,42 +263,38 @@ export default {
         this.charts = echarts.init(document.getElementById(id))
       }
       this.charts.setOption({
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            type: 'cross',
-            label: {
-              backgroundColor: '#6a7985'
+        baseOption: {
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              type: 'cross',
+              label: {
+                backgroundColor: '#6a7985'
+              }
             }
-          }
-        },
-        legend: {
-          data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
-        },
-        toolbox: {
-          feature: {
-            saveAsImage: {}
-          }
-        },
-        grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
-          containLabel: true
-        },
-        xAxis: [
-          {
-            type: 'category',
-            boundaryGap: false,
-            data: xAxisOptions
-          }
-        ],
-        yAxis: [
-          {
-            type: 'value'
-          }
-        ],
-        series: myseriesData
+          },
+          legend: {
+            data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
+          },
+          toolbox: {
+            feature: {
+              saveAsImage: {}
+            }
+          },
+          xAxis: [
+            {
+              type: 'category',
+              boundaryGap: false,
+              data: xAxisOptions
+            }
+          ],
+          yAxis: [
+            {
+              type: 'value'
+            }
+          ],
+          series: myseriesData
+        }
       })
     }
   },
@@ -314,7 +310,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .chartCanvas{
-  width: 600px;
+  width: 630px;
   height: 400px;
   margin: 0 auto;
   padding-top: 40px;
