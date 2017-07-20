@@ -1,34 +1,42 @@
 <template>
-  <div id="chart_container"> 
-    <div id="yearFilter" class="block">
-      <div class="inline-block">
-        <span class="demonstration">年</span>
-        <el-date-picker
-          v-model="year"
-          @change="handleYear"
-          align="right"
-          type="year"
-          placeholder="选择年">
-        </el-date-picker>
+  <div id="chart_container">
+    <el-switch
+      v-model="filterswitch"
+      on-color="#13ce66"
+      off-color="#ff4949"
+      @change="handleSwithcer" class="filterSwitcher">    
+    </el-switch>
+    <div class="filer_container" v-show="filterswitch">
+      <div id="yearFilter" class="block">
+        <div class="inline-block">
+          <span class="demonstration">年</span>
+          <el-date-picker
+            v-model="year"
+            @change="handleYear"
+            align="right"
+            type="year"
+            placeholder="选择年">
+          </el-date-picker>
+        </div>
+        <div class="inline-block" v-if="yearScope">
+          <span class="demonstration">年</span>
+          <el-date-picker
+            v-model="endyear"
+            @change="handleEndYear"
+            align="right"
+            type="year"
+            placeholder="选择年">
+          </el-date-picker>
+        </div>
       </div>
-      <div class="inline-block" v-if="yearScope">
-        <span class="demonstration">年</span>
-        <el-date-picker
-          v-model="endyear"
-          @change="handleEndYear"
-          align="right"
-          type="year"
-          placeholder="选择年">
-        </el-date-picker>
+      <div id="quaterFilter" v-if="quaterSelection">
+          <div style="margin: 15px 0;"></div>
+          <el-checkbox-group v-model="checkboxGroup1" @change="handleQuater">
+            <el-checkbox-button v-for="quater in quaters" :label="quater" :key="quater">{{quater}}</el-checkbox-button>
+          </el-checkbox-group>
       </div>
-    </div>
-    <div id="quaterFilter" v-if="quaterSelection">
-        <div style="margin: 15px 0;"></div>
-        <el-checkbox-group v-model="checkboxGroup1" @change="handleQuater">
-          <el-checkbox-button v-for="quater in quaters" :label="quater" :key="quater">{{quater}}</el-checkbox-button>
-        </el-checkbox-group>
-    </div>      
-    <div id="chart" class="chartCanvas grid-content"></div>      
+    </div>         
+    <div id="chart" class="chartCanvas grid-content" v-show="!filterswitch"></div>      
   </div>
 </template>
 
@@ -221,7 +229,7 @@ export default {
     return {
       year: '',
       endyear: '',
-      filters: '',
+      filterswitch: false,
       charts: '',
       checkboxGroup1: [],
       yearScope: false,
@@ -230,6 +238,9 @@ export default {
     }
   },
   methods: {
+    handleSwithcer () {
+      this.filterswitch = !this.filterswitch
+    },
     handleYear () {
       console.log(this.year)
       this.yearScope = true
@@ -352,8 +363,11 @@ export default {
   width: 630px;
   height: 400px;
   margin: 0 auto;
-  padding-top: 40px;
+  padding-top: 20px;
   text-align: center;  
+}
+.filterSwitcher{
+  margin-bottom: 10px;
 }
 /* @media (min-width: 600px) {
   .chartCanvas{
