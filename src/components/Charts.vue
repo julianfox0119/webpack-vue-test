@@ -171,6 +171,50 @@ const seriesData2 = [
   }
 ]
 
+const seriesData3 = [
+  {
+    name: '邮件营销',
+    type: 'line',
+    stack: '总量',
+    areaStyle: {normal: {}},
+    data: [220, 132, 201, 134]
+  },
+  {
+    name: '联盟广告',
+    type: 'line',
+    stack: '总量',
+    areaStyle: {normal: {}},
+    data: [120, 182, 291, 234]
+  },
+  {
+    name: '视频广告',
+    type: 'line',
+    stack: '总量',
+    areaStyle: {normal: {}},
+    data: [350, 232, 201, 254]
+  },
+  {
+    name: '直接访问',
+    type: 'line',
+    stack: '总量',
+    areaStyle: {normal: {}},
+    data: [320, 232, 301, 234]
+  },
+  {
+    name: '搜索引擎',
+    type: 'line',
+    stack: '总量',
+    label: {
+      normal: {
+        show: true,
+        position: 'top'
+      }
+    },
+    areaStyle: {normal: {}},
+    data: [620, 932, 701, 934]
+  }
+]
+
 export default {
   name: 'charts',
   data () {
@@ -212,7 +256,7 @@ export default {
     handleQuater () {
       console.log(this.checkboxGroup1)
       this.yearScope = false
-      this.drawChart('chart', seriesData2, quaterOptions)
+      this.drawChart('chart', seriesData3, quaterOptions)
     },
     drawChart (id, myseriesData, xAxisOptions) {
       if (!this.charts) {
