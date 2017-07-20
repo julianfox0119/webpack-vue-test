@@ -276,13 +276,13 @@ export default {
           legend: {
             data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
           },
-          toolbox: {
-            orient: 'horizontal',
-            right: 'auto',
-            feature: {
-              saveAsImage: {}
-            }
-          },
+          // toolbox: {
+          //   orient: 'horizontal',
+          //   right: '5%',
+          //   feature: {
+          //     saveAsImage: {}
+          //   }
+          // },
           xAxis: [
             {
               type: 'category',
