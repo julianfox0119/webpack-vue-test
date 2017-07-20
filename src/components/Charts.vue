@@ -37,34 +37,36 @@ import echarts from 'echarts'
 
 const quaterOptions = ['第一季度', '第二季度', '第三季度', '第四季度']
 
+const yearOptions = ['2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019']
+
 const seriesData = [
   {
     name: '邮件营销',
     type: 'line',
     stack: '总量',
     areaStyle: {normal: {}},
-    data: [120, 132, 101, 134, 90, 230, 210]
+    data: [120, 132, 101, 134, 90, 230, 210, 250, 300, 180]
   },
   {
     name: '联盟广告',
     type: 'line',
     stack: '总量',
     areaStyle: {normal: {}},
-    data: [220, 182, 191, 234, 290, 330, 310]
+    data: [220, 182, 191, 234, 290, 330, 310, 335, 270, 430]
   },
   {
     name: '视频广告',
     type: 'line',
     stack: '总量',
     areaStyle: {normal: {}},
-    data: [150, 232, 201, 154, 190, 330, 410]
+    data: [150, 232, 201, 154, 190, 330, 410, 270, 310, 210]
   },
   {
     name: '直接访问',
     type: 'line',
     stack: '总量',
     areaStyle: {normal: {}},
-    data: [320, 332, 301, 334, 390, 330, 320]
+    data: [320, 332, 301, 334, 390, 330, 320, 350, 289, 320]
   },
   {
     name: '搜索引擎',
@@ -77,7 +79,7 @@ const seriesData = [
       }
     },
     areaStyle: {normal: {}},
-    data: [820, 932, 901, 934, 1290, 1330, 1320]
+    data: [820, 932, 901, 934, 1290, 1330, 1320, 1210, 2201, 1890]
   }
 ]
 
@@ -190,24 +192,24 @@ export default {
       this.quaterSelection = true
       this.checkboxGroup1 = []
       if (this.year) {
-        this.drawChart('chart', seriesData1)
+        this.drawChart('chart', seriesData1, yearOptions)
       } else {
         this.yearScope = false
         this.quaterSelection = false
-        this.drawChart('chart', seriesData)
+        this.drawChart('chart', seriesData, yearOptions)
       }
     },
     handleEndYear () {
       console.log(this.endyear)
       this.quaterSelection = false
-      this.drawChart('chart', seriesData1)
+      this.drawChart('chart', seriesData1, yearOptions)
     },
     handleQuater () {
       console.log(this.checkboxGroup1)
       this.yearScope = false
-      this.drawChart('chart', seriesData2)
+      this.drawChart('chart', seriesData2, quaterOptions)
     },
-    drawChart (id, myseriesData) {
+    drawChart (id, myseriesData, xAxisOptions) {
       if (!this.charts) {
         this.charts = echarts.init(document.getElementById(id))
       }
@@ -239,7 +241,7 @@ export default {
           {
             type: 'category',
             boundaryGap: false,
-            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+            data: xAxisOptions
           }
         ],
         yAxis: [
@@ -254,7 +256,7 @@ export default {
 
   mounted () {
     this.$nextTick(function () {
-      this.drawChart('chart', seriesData)
+      this.drawChart('chart', seriesData, yearOptions)
     })
   }
 }
