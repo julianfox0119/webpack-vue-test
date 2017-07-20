@@ -11,8 +11,18 @@
             placeholder="选择年">
           </el-date-picker>
         </div>
+        <div class="block" v-if="yearScope">
+          <span class="demonstration">年</span>
+          <el-date-picker
+            v-model="endyear"
+            @change="handleEndYear"
+            align="right"
+            type="year"
+            placeholder="选择年">
+          </el-date-picker>
+        </div>
       </div>
-      <div id="quaterFilter" v-if="year">
+      <div id="quaterFilter" v-if="quaterSelection">
           <div style="margin: 15px 0;"></div>
           <el-checkbox-group v-model="checkboxGroup1" @change="handleQuater">
             <el-checkbox-button v-for="quater in quaters" :label="quater" :key="quater">{{quater}}</el-checkbox-button>
@@ -32,9 +42,12 @@ export default {
   data () {
     return {
       year: '',
+      endyear: '',
       filters: '',
       charts: '',
       checkboxGroup1: [],
+      yearScope: false,
+      quaterSelection: false,
       quaters: quaterOptions,
       opinion: [ '直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎' ],
       opinionData: [
@@ -60,16 +73,22 @@ export default {
     }
   },
   methods: {
-    setquater () {
-      console.log(this)
-    },
     handleYear () {
+      console.log(this.year)
+      this.yearScope = true
+      this.quaterSelection = true
+      this.checkboxGroup1 = []
       this.drawPie('chart', this.opinion1, this.opinionData1)
-      // this.filters = command
+    },
+    handleEndYear () {
+      console.log(this.endyear)
+      this.quaterSelection = false
+      this.drawPie('chart', this.opinion, this.opinionData)
     },
     handleQuater () {
+      console.log(this.checkboxGroup1)
+      this.yearScope = false
       this.drawPie('chart', this.opinion2, this.opinionData2)
-      // this.filters = command
     },
     drawPie (id, opinion, opinionData) {
       if (!this.charts) {
