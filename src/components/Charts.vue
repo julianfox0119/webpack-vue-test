@@ -202,7 +202,12 @@ export default {
     handleEndYear () {
       console.log(this.endyear)
       this.quaterSelection = false
-      this.drawChart('chart', seriesData1, yearOptions)
+      if (this.endyear) {
+        this.drawChart('chart', seriesData1, yearOptions)
+      } else {
+        this.yearScope = false
+        this.drawChart('chart', seriesData2, quaterOptions)
+      }
     },
     handleQuater () {
       console.log(this.checkboxGroup1)
