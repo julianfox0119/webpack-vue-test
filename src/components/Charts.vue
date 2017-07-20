@@ -1,35 +1,35 @@
 <template>
-    <div id="chart_container"> 
-      <div id="yearFilter" class="block">
-        <div class="inline-block">
-          <span class="demonstration">年</span>
-          <el-date-picker
-            v-model="year"
-            @change="handleYear"
-            align="right"
-            type="year"
-            placeholder="选择年">
-          </el-date-picker>
-        </div>
-        <div class="inline-block" v-if="yearScope">
-          <span class="demonstration">年</span>
-          <el-date-picker
-            v-model="endyear"
-            @change="handleEndYear"
-            align="right"
-            type="year"
-            placeholder="选择年">
-          </el-date-picker>
-        </div>
+  <div id="chart_container"> 
+    <div id="yearFilter" class="block">
+      <div class="inline-block">
+        <span class="demonstration">年</span>
+        <el-date-picker
+          v-model="year"
+          @change="handleYear"
+          align="right"
+          type="year"
+          placeholder="选择年">
+        </el-date-picker>
       </div>
-      <div id="quaterFilter" v-if="quaterSelection">
-          <div style="margin: 15px 0;"></div>
-          <el-checkbox-group v-model="checkboxGroup1" @change="handleQuater">
-            <el-checkbox-button v-for="quater in quaters" :label="quater" :key="quater">{{quater}}</el-checkbox-button>
-          </el-checkbox-group>
+      <div class="inline-block" v-if="yearScope">
+        <span class="demonstration">年</span>
+        <el-date-picker
+          v-model="endyear"
+          @change="handleEndYear"
+          align="right"
+          type="year"
+          placeholder="选择年">
+        </el-date-picker>
       </div>
-      <div id="chart" class="chartCanvas"></div>
     </div>
+    <div id="quaterFilter" v-if="quaterSelection">
+        <div style="margin: 15px 0;"></div>
+        <el-checkbox-group v-model="checkboxGroup1" @change="handleQuater">
+          <el-checkbox-button v-for="quater in quaters" :label="quater" :key="quater">{{quater}}</el-checkbox-button>
+        </el-checkbox-group>
+    </div>      
+    <div id="chart" class="chartCanvas grid-content"></div>      
+  </div>
 </template>
 
 <script>
@@ -294,7 +294,44 @@ export default {
             }
           ],
           series: myseriesData
-        }
+        },
+        media: [
+          {
+            option: {
+              legend: {
+                orient: 'vertical'
+              }
+            }
+          },
+          {
+            query: {
+              minWidth: 600
+            },
+            option: {
+              legend: {
+                top: '5%',
+                left: '0',
+                itemWidth: 10,
+                itemHeight: 10,
+                orient: 'vertical'
+              },
+              grid: {
+                top: '5%',
+                left: '20%'
+              }
+            }
+          },
+          {
+            query: {
+              maxWidth: 600
+            },
+            option: {
+              legend: {
+                orient: 'horizontal'
+              }
+            }
+          }
+        ]
       })
     }
   },
@@ -310,11 +347,21 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .chartCanvas{
-  width: 630px;
-  height: 400px;
   margin: 0 auto;
   padding-top: 40px;
   text-align: center;  
+}
+@media (min-width: 600px) {
+  .chartCanvas{
+    width: 630px;
+    height: 400px;
+  }
+}
+@media (max-width: 600px) {
+  .chartCanvas{
+    width: 330px;
+    height: 400px;
+  }
 }
 .inline-block{
   display:inline-block;
