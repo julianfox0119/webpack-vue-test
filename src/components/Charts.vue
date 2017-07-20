@@ -35,6 +35,7 @@
             <el-checkbox-button v-for="quater in quaters" :label="quater" :key="quater">{{quater}}</el-checkbox-button>
           </el-checkbox-group>
       </div>
+      <el-button type="success" class="confirmBtn" @click="handleSwithcer">Confirm</el-button>
     </div>         
     <div id="chart" class="chartCanvas grid-content" v-show="!filterswitch"></div>      
   </div>
@@ -368,6 +369,9 @@ export default {
 }
 .filterSwitcher{
   margin-bottom: 10px;
+}
+.confirmBtn{
+  margin: 5px auto;
 }
 /* @media (min-width: 600px) {
   .chartCanvas{
