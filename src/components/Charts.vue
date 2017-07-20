@@ -1,7 +1,7 @@
 <template>
     <div id="chart_container"> 
-      <div id="yearFilter">
-        <div class="block">
+      <div id="yearFilter" class="block">
+        <div class="inline-block">
           <span class="demonstration">年</span>
           <el-date-picker
             v-model="year"
@@ -11,7 +11,7 @@
             placeholder="选择年">
           </el-date-picker>
         </div>
-        <div class="block" v-if="yearScope">
+        <div class="inline-block" v-if="yearScope">
           <span class="demonstration">年</span>
           <el-date-picker
             v-model="endyear"
@@ -81,6 +81,94 @@ const seriesData = [
   }
 ]
 
+const seriesData1 = [
+  {
+    name: '邮件营销',
+    type: 'line',
+    stack: '总量',
+    areaStyle: {normal: {}},
+    data: [120, 132, 101, 134, 90, 230]
+  },
+  {
+    name: '联盟广告',
+    type: 'line',
+    stack: '总量',
+    areaStyle: {normal: {}},
+    data: [220, 182, 191, 234, 290, 330]
+  },
+  {
+    name: '视频广告',
+    type: 'line',
+    stack: '总量',
+    areaStyle: {normal: {}},
+    data: [150, 232, 201, 154, 190, 330]
+  },
+  {
+    name: '直接访问',
+    type: 'line',
+    stack: '总量',
+    areaStyle: {normal: {}},
+    data: [320, 332, 301, 334, 390, 330]
+  },
+  {
+    name: '搜索引擎',
+    type: 'line',
+    stack: '总量',
+    label: {
+      normal: {
+        show: true,
+        position: 'top'
+      }
+    },
+    areaStyle: {normal: {}},
+    data: [820, 932, 901, 934, 1290, 1330]
+  }
+]
+
+const seriesData2 = [
+  {
+    name: '邮件营销',
+    type: 'line',
+    stack: '总量',
+    areaStyle: {normal: {}},
+    data: [120, 132, 101, 134]
+  },
+  {
+    name: '联盟广告',
+    type: 'line',
+    stack: '总量',
+    areaStyle: {normal: {}},
+    data: [220, 182, 191, 234]
+  },
+  {
+    name: '视频广告',
+    type: 'line',
+    stack: '总量',
+    areaStyle: {normal: {}},
+    data: [150, 232, 201, 154]
+  },
+  {
+    name: '直接访问',
+    type: 'line',
+    stack: '总量',
+    areaStyle: {normal: {}},
+    data: [320, 332, 301, 334]
+  },
+  {
+    name: '搜索引擎',
+    type: 'line',
+    stack: '总量',
+    label: {
+      normal: {
+        show: true,
+        position: 'top'
+      }
+    },
+    areaStyle: {normal: {}},
+    data: [820, 932, 901, 934]
+  }
+]
+
 export default {
   name: 'charts',
   data () {
@@ -92,28 +180,7 @@ export default {
       checkboxGroup1: [],
       yearScope: false,
       quaterSelection: false,
-      quaters: quaterOptions,
-      opinion: [ '直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎' ],
-      opinionData: [
-        {value: 335, name: '直接访问'},
-        {value: 310, name: '邮件营销'},
-        {value: 234, name: '联盟广告'},
-        {value: 135, name: '视频广告'},
-        {value: 1549, name: '搜索引擎'}
-      ],
-      opinion2: [ '直接访问', '邮件营销', '联盟广告' ],
-      opinionData2: [
-        {value: 335, name: '直接访问'},
-        {value: 310, name: '邮件营销'},
-        {value: 234, name: '联盟广告'}
-      ],
-      opinion1: [ '直接访问', '邮件营销', '联盟广告', '搜索引擎' ],
-      opinionData1: [
-        {value: 335, name: '直接访问'},
-        {value: 310, name: '邮件营销'},
-        {value: 234, name: '联盟广告'},
-        {value: 1549, name: '搜索引擎'}
-      ]
+      quaters: quaterOptions
     }
   },
   methods: {
@@ -122,19 +189,23 @@ export default {
       this.yearScope = true
       this.quaterSelection = true
       this.checkboxGroup1 = []
-      this.drawChart('chart', this.opinion1, this.opinionData1)
+      if (this.year) {
+        this.drawChart('chart', seriesData1)
+      } else {
+        this.drawChart('chart', seriesData)
+      }
     },
     handleEndYear () {
       console.log(this.endyear)
       this.quaterSelection = false
-      this.drawChart('chart', this.opinion, this.opinionData)
+      this.drawChart('chart', seriesData1)
     },
     handleQuater () {
       console.log(this.checkboxGroup1)
       this.yearScope = false
-      this.drawChart('chart', this.opinion2, this.opinionData2)
+      this.drawChart('chart', seriesData2)
     },
-    drawChart (id, opinion, opinionData) {
+    drawChart (id, myseriesData) {
       if (!this.charts) {
         this.charts = echarts.init(document.getElementById(id))
       }
@@ -174,14 +245,14 @@ export default {
             type: 'value'
           }
         ],
-        series: seriesData
+        series: myseriesData
       })
     }
   },
 
   mounted () {
     this.$nextTick(function () {
-      this.drawChart('chart', this.opinion, this.opinionData)
+      this.drawChart('chart', seriesData)
     })
   }
 }
@@ -195,5 +266,8 @@ export default {
   margin: 0 auto;
   padding-top: 40px;
   text-align: center;  
+}
+.inline-block{
+  display:inline-block;
 }
 </style>
