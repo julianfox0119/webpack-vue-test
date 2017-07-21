@@ -159,11 +159,11 @@ export default {
   methods: {
     resetSelect () {
       this.reset = []
-      this.activeNames = []
+      // this.activeNames = []
       this.drawChart('chart', seriesData, RSMS)
     },
     handleChange (val) {
-      this.activeNames = []
+      // this.activeNames = []
       if (val[1]) {
         let xAxisData = val[1]
         if (xAxisData.indexOf('1DSM1') > -1) {
@@ -260,7 +260,7 @@ export default {
   opacity: 0;
 }
 
-@media (max-height: 300px) {
+@media (max-height: 500px) {
   .chartCanvas{
     height: 300px;
     margin-top: 20px; 
@@ -268,7 +268,7 @@ export default {
 }
 @media (min-height: 500px) {
   .chartCanvas{
-    height: 400px; 
+    height: 500px; 
     margin-top: 30px;
   }
 }
