@@ -10,7 +10,7 @@
           :props="props"
           class="casader"
         ></el-cascader>
-        <el-button type="primary" @click="resetSelect">Reset</el-button>
+        <el-button type="primary" @click="resetSelect" class="resetBtn">Reset</el-button>
       </el-collapse-item>
     </el-collapse>    
     <div id="chart" class="chartCanvas grid-content" v-show="!filterswitch"></div>            
@@ -270,6 +270,10 @@ export default {
     height: 500px; 
     margin-top: 30px;
   }
+}
+.resetBtn{
+  background-color: #24292e;
+  border-color: #24292e;
 }
 </style>
 
