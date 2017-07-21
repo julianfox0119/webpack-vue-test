@@ -12,8 +12,7 @@
         ></el-cascader>
         <el-button type="primary" @click="resetSelect">Reset</el-button>
       </el-collapse-item>
-    </el-collapse>
-    
+    </el-collapse>    
     <div id="chart" class="chartCanvas grid-content" v-show="!filterswitch"></div>            
   </div>
 </template>
