@@ -1,57 +1,24 @@
 <template>
   <div id="chart_container">
-     <el-switch
-      v-model="filterswitch"
-      on-color="#13ce66"
-      off-color="#ff4949"
-      @change="handleSwithcer" class="filterSwitcher">    
-    </el-switch> 
-    <!-- <el-button type="text" icon="arrow-down" @click="handleSwithcer"></el-button> -->
-    <transition name="slide-fade">
-      <div class="filer_container" v-show="filterswitch">
-        <div id="yearFilter" class="block">
-          <div class="inline-block">
-            <span class="demonstration">年</span>
-            <el-date-picker
-              v-model="year"
-              @change="handleYear"
-              align="right"
-              type="year"
-              placeholder="选择年">
-            </el-date-picker>
-          </div>
-          <div class="inline-block" v-if="yearScope">
-            <span class="demonstration">年</span>
-            <el-date-picker
-              v-model="endyear"
-              @change="handleEndYear"
-              align="right"
-              type="year"
-              placeholder="选择年">
-            </el-date-picker>
-          </div>
-        </div>
-        <div id="quaterFilter" v-if="quaterSelection">
-            <div style="margin: 15px 0;"></div>
-            <el-checkbox-group v-model="checkboxGroup1" @change="handleQuater">
-              <el-checkbox-button v-for="quater in quaters" :label="quater" :key="quater">{{quater}}</el-checkbox-button>
-            </el-checkbox-group>
-        </div>
-        <el-button type="success" class="confirmBtn" @click="handleSwithcer">Confirm</el-button>
-      </div>
-    </transition>   
-    <transition name="slide-fade">
-      <div id="chart" class="chartCanvas grid-content" v-show="!filterswitch"></div>  
-    </transition>                
+    <el-cascader
+      :options="RSMOptions"
+      @active-item-change="handleItemChange"
+      @change="handleChange"
+      :props="props"
+      class="casader"
+    ></el-cascader>
+    <div id="chart" class="chartCanvas grid-content" v-show="!filterswitch"></div>            
   </div>
 </template>
 
 <script>
 import echarts from 'echarts'
 
-const quaterOptions = ['第一季度', '第二季度', '第三季度', '第四季度']
-
-const yearOptions = ['2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019']
+// could be dynamic obtain from backend
+// fake data
+const RSMS = ['RSM1', 'RSM2', 'RSM3', 'RSM4', 'RSM5', 'RSM6', 'RSM7']
+const DSMS1 = ['1DSM1', '1DSM2', '1DSM3', '1DSM4', '1DSM5', '1DSM6', '1DSM7', '1DSM8', '1DSM9', '1DSM10']
+const DSMS2 = ['2DSM1', '2DSM2', '2DSM3', '2DSM4', '2DSM5', '2DSM6', '2DSM7']
 
 const seriesData = [
   {
@@ -59,28 +26,28 @@ const seriesData = [
     type: 'line',
     stack: '总量',
     areaStyle: {normal: {}},
-    data: [120, 132, 101, 134, 90, 230, 210, 250, 300, 180]
+    data: [120, 132, 101, 134, 90, 230, 210]
   },
   {
     name: 'KPI2',
     type: 'line',
     stack: '总量',
     areaStyle: {normal: {}},
-    data: [220, 182, 191, 234, 290, 330, 310, 335, 270, 430]
+    data: [220, 182, 191, 234, 290, 330, 310]
   },
   {
     name: 'KPI3',
     type: 'line',
     stack: '总量',
     areaStyle: {normal: {}},
-    data: [150, 232, 201, 154, 190, 330, 410, 270, 310, 210]
+    data: [150, 232, 201, 154, 190, 330, 410]
   },
   {
     name: 'KPI4',
     type: 'line',
     stack: '总量',
     areaStyle: {normal: {}},
-    data: [320, 332, 301, 334, 390, 330, 320, 350, 289, 320]
+    data: [320, 332, 301, 334, 390, 330, 320]
   },
   {
     name: 'KPI5',
@@ -93,7 +60,7 @@ const seriesData = [
       }
     },
     areaStyle: {normal: {}},
-    data: [820, 932, 901, 934, 1290, 1330, 1320, 1210, 1510, 1890]
+    data: [820, 932, 901, 934, 1290, 1330, 1320]
   }
 ]
 
@@ -147,28 +114,28 @@ const seriesData2 = [
     type: 'line',
     stack: '总量',
     areaStyle: {normal: {}},
-    data: [120, 132, 101, 134]
+    data: [120, 132, 101, 134, 90, 230, 210]
   },
   {
     name: 'KPI2',
     type: 'line',
     stack: '总量',
     areaStyle: {normal: {}},
-    data: [220, 182, 191, 234]
+    data: [220, 182, 191, 234, 290, 330, 310]
   },
   {
     name: 'KPI3',
     type: 'line',
     stack: '总量',
     areaStyle: {normal: {}},
-    data: [150, 232, 201, 154]
+    data: [150, 232, 201, 154, 190, 330, 410]
   },
   {
     name: 'KPI4',
     type: 'line',
     stack: '总量',
     areaStyle: {normal: {}},
-    data: [320, 332, 301, 334]
+    data: [320, 332, 301, 334, 390, 330, 320]
   },
   {
     name: 'KPI5',
@@ -181,51 +148,7 @@ const seriesData2 = [
       }
     },
     areaStyle: {normal: {}},
-    data: [820, 932, 901, 934]
-  }
-]
-
-const seriesData3 = [
-  {
-    name: 'KPI1',
-    type: 'line',
-    stack: '总量',
-    areaStyle: {normal: {}},
-    data: [220, 132, 201, 134]
-  },
-  {
-    name: 'KPI2',
-    type: 'line',
-    stack: '总量',
-    areaStyle: {normal: {}},
-    data: [120, 182, 291, 234]
-  },
-  {
-    name: 'KPI3',
-    type: 'line',
-    stack: '总量',
-    areaStyle: {normal: {}},
-    data: [350, 232, 201, 254]
-  },
-  {
-    name: 'KPI4',
-    type: 'line',
-    stack: '总量',
-    areaStyle: {normal: {}},
-    data: [320, 232, 301, 234]
-  },
-  {
-    name: 'KPI5',
-    type: 'line',
-    stack: '总量',
-    label: {
-      normal: {
-        show: true,
-        position: 'top'
-      }
-    },
-    areaStyle: {normal: {}},
-    data: [620, 932, 701, 934]
+    data: [820, 932, 901, 934, 1290, 1330, 1320]
   }
 ]
 
@@ -239,42 +162,37 @@ export default {
       filterswitch: false,
       charts: '',
       checkboxGroup1: [],
-      yearScope: false,
-      quaterSelection: false,
-      quaters: quaterOptions
+      rsms: RSMS,
+      RSMOptions: [{label: 'RSM1', dsms: []}, {label: 'RSM2', dsms: []}, {label: 'RSM3', dsms: []}, {label: 'RSM4', dsms: []}, {label: 'RSM5', dsms: []}, {label: 'RSM6', dsms: []}, {label: 'RSM7', dsms: []}],
+      props: {
+        value: 'label',
+        children: 'dsms'
+      }
     }
   },
   methods: {
+    handleChange (val) {
+      console.log('changed!', val[1])
+      let xAxisData = val[1]
+      if (xAxisData.indexOf('1DSM1') > -1) {
+        this.drawChart('chart', seriesData1, DSMS1)
+      }
+      if (xAxisData.indexOf('2DSM1') > -1) {
+        this.drawChart('chart', seriesData2, DSMS2)
+      }
+    },
+    handleItemChange (val) {
+      console.log('active item:', val)
+      setTimeout(_ => {
+        if (val.indexOf('RSM1') > -1 && !this.RSMOptions[0].dsms.length) {
+          this.RSMOptions[0].dsms = [{label: '1DSM1'}, {label: '1DSM2'}, {label: '1DSM3'}, {label: '1DSM4'}, {label: '1DSM5'}, {label: '1DSM6'}, {label: '1DSM7'}, {label: '1DSM8'}, {label: '1DSM9'}, {label: '1DSM10'}]
+        } else if (val.indexOf('RSM2') > -1 && !this.RSMOptions[1].dsms.length) {
+          this.RSMOptions[1].dsms = [{label: '2DSM1'}, {label: '2DSM2'}, {label: '2DSM3'}, {label: '2DSM4'}, {label: '2DSM5'}, {label: '2DSM6'}, {label: '2DSM7'}]
+        }
+      }, 300)
+    },
     handleSwithcer () {
       this.filterswitch = !this.filterswitch
-    },
-    handleYear () {
-      console.log(this.year)
-      this.yearScope = true
-      this.quaterSelection = true
-      this.checkboxGroup1 = []
-      if (this.year) {
-        this.drawChart('chart', seriesData2, quaterOptions)
-      } else {
-        this.yearScope = false
-        this.quaterSelection = false
-        this.drawChart('chart', seriesData, yearOptions)
-      }
-    },
-    handleEndYear () {
-      console.log(this.endyear)
-      this.quaterSelection = false
-      if (this.endyear) {
-        this.drawChart('chart', seriesData1, yearOptions)
-      } else {
-        this.yearScope = false
-        this.drawChart('chart', seriesData2, quaterOptions)
-      }
-    },
-    handleQuater () {
-      console.log(this.checkboxGroup1)
-      this.yearScope = false
-      this.drawChart('chart', seriesData3, quaterOptions)
     },
     drawChart (id, myseriesData, xAxisOptions) {
       if (!this.charts) {
@@ -294,11 +212,6 @@ export default {
           legend: {
             data: ['KPI1', 'KPI2', 'KPI3', 'KPI4', 'KPI5']
           },
-          // toolbox: {
-          //   feature: {
-          //     saveAsImage: {}
-          //   }
-          // },
           xAxis: [
             {
               type: 'category',
@@ -319,7 +232,7 @@ export default {
 
   mounted () {
     this.$nextTick(function () {
-      this.drawChart('chart', seriesData, yearOptions)
+      this.drawChart('chart', seriesData, RSMS)
     })
   }
 }
@@ -328,10 +241,13 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .chartCanvas{
-  width: 630px;
+  width: 635px;
   height: 400px;
   margin: 0 auto;
   text-align: center;  
+}
+.casader{
+  margin-bottom: 5px;
 }
 .filterSwitcher{
   margin-bottom: 10px;
