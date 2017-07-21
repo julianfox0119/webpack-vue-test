@@ -241,7 +241,6 @@ export default {
       // todo: get default data using ajax
     })
     window.onresize = () => {
-      console.log('resized!')
       this.charts.resize()
     }
   }
@@ -251,7 +250,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .chartCanvas{
-  width: 90%;
+  width: 95%;
   height: 400px;
   margin: 0 auto;
   text-align: center;  
@@ -271,6 +270,17 @@ export default {
 .slide-fade-enter, .slide-fade-leave-to
 {
   opacity: 0;
+}
+
+@media (max-height: 300px) {
+  .chartCanvas{
+    height: 400px; 
+  }
+}
+@media (min-height: 500px) {
+  .chartCanvas{
+    height: 600px; 
+  }
 }
 </style>
 
