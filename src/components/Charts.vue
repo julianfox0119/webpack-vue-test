@@ -147,7 +147,7 @@ export default {
       this.drawChart('chart', seriesData, RSMS)
     },
     handleChange (val) {
-      // this.activeNames = []
+      this.activeNames = []
       if (val[1]) {
         let xAxisData = val[1]
         if (xAxisData.indexOf('1DSM1') > -1) {
@@ -186,12 +186,6 @@ export default {
             // orient: 'vertical',
             data: ['KPI1', 'KPI2', 'KPI3', 'KPI4', 'KPI5']
           },
-          // grid: {
-          //   left: '3%',
-          //   right: '4%',
-          //   bottom: '3%',
-          //   containLabel: true
-          // },
           xAxis: [
             {
               type: 'category',
@@ -252,13 +246,13 @@ export default {
 
 @media (max-height: 300px) {
   .chartCanvas{
-    height: 400px;
+    height: 300px;
     margin-top: 20px; 
   }
 }
 @media (min-height: 500px) {
   .chartCanvas{
-    height: 600px; 
+    height: 400px; 
     margin-top: 30px;
   }
 }

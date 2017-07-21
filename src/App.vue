@@ -25,6 +25,7 @@ export default {
   color: #2c3e50;
   margin-top: 20px;
   width: 100%;
+  max-height: 414px;
 }
 </style>
 
