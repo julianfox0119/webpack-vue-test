@@ -1,6 +1,6 @@
 <template>
   <div id="chart_container">
-    <el-collapse>
+    <el-collapse v-model="activeNames">
       <el-collapse-item title="More Options..." name="1">
         <el-cascader
           v-model="reset"
@@ -30,43 +30,32 @@ const DSMS2 = ['2DSM1', '2DSM2', '2DSM3', '2DSM4', '2DSM5', '2DSM6', '2DSM7']
 const seriesData = [
   {
     name: 'KPI1',
-    type: 'line',
-    stack: '总量',
-    areaStyle: {normal: {}},
+    type: 'bar',
+    stack: 'behavior',
     data: [120, 132, 101, 134, 90, 230, 210]
   },
   {
     name: 'KPI2',
-    type: 'line',
-    stack: '总量',
-    areaStyle: {normal: {}},
+    type: 'bar',
+    stack: 'behavior',
     data: [220, 182, 191, 234, 290, 330, 310]
   },
   {
     name: 'KPI3',
-    type: 'line',
-    stack: '总量',
-    areaStyle: {normal: {}},
+    type: 'bar',
+    stack: 'business',
     data: [150, 232, 201, 154, 190, 330, 410]
   },
   {
     name: 'KPI4',
-    type: 'line',
-    stack: '总量',
-    areaStyle: {normal: {}},
+    type: 'bar',
+    stack: 'business',
     data: [320, 332, 301, 334, 390, 330, 320]
   },
   {
     name: 'KPI5',
-    type: 'line',
-    stack: '总量',
-    label: {
-      normal: {
-        show: true,
-        position: 'top'
-      }
-    },
-    areaStyle: {normal: {}},
+    type: 'bar',
+    stack: 'business',
     data: [820, 932, 901, 934, 1290, 1330, 1320]
   }
 ]
@@ -74,43 +63,32 @@ const seriesData = [
 const seriesData1 = [
   {
     name: 'KPI1',
-    type: 'line',
-    stack: '总量',
-    areaStyle: {normal: {}},
+    type: 'bar',
+    stack: 'behavior',
     data: [120, 132, 101, 134, 90, 230, 100, 210, 198, 220]
   },
   {
     name: 'KPI2',
-    type: 'line',
-    stack: '总量',
-    areaStyle: {normal: {}},
+    type: 'bar',
+    stack: 'behavior',
     data: [220, 182, 191, 234, 290, 330, 287, 201, 220, 190]
   },
   {
     name: 'KPI3',
-    type: 'line',
-    stack: '总量',
-    areaStyle: {normal: {}},
+    type: 'bar',
+    stack: 'business',
     data: [150, 232, 201, 154, 190, 330, 279, 320, 290, 311]
   },
   {
     name: 'KPI4',
-    type: 'line',
-    stack: '总量',
-    areaStyle: {normal: {}},
+    type: 'bar',
+    stack: 'business',
     data: [320, 332, 301, 334, 390, 330, 280, 301, 340, 320]
   },
   {
     name: 'KPI5',
-    type: 'line',
-    stack: '总量',
-    label: {
-      normal: {
-        show: true,
-        position: 'top'
-      }
-    },
-    areaStyle: {normal: {}},
+    type: 'bar',
+    stack: 'business',
     data: [820, 932, 901, 934, 1290, 1330, 1020, 1220, 1190, 1210]
   }
 ]
@@ -118,43 +96,32 @@ const seriesData1 = [
 const seriesData2 = [
   {
     name: 'KPI1',
-    type: 'line',
-    stack: '总量',
-    areaStyle: {normal: {}},
+    type: 'bar',
+    stack: 'behavior',
     data: [120, 132, 101, 134, 90, 230, 310]
   },
   {
     name: 'KPI2',
-    type: 'line',
-    stack: '总量',
-    areaStyle: {normal: {}},
+    type: 'bar',
+    stack: 'behavior',
     data: [220, 182, 191, 234, 290, 330, 210]
   },
   {
     name: 'KPI3',
-    type: 'line',
-    stack: '总量',
-    areaStyle: {normal: {}},
+    type: 'bar',
+    stack: 'business',
     data: [150, 232, 201, 154, 190, 330, 429]
   },
   {
     name: 'KPI4',
-    type: 'line',
-    stack: '总量',
-    areaStyle: {normal: {}},
+    type: 'bar',
+    stack: 'business',
     data: [320, 332, 301, 334, 390, 330, 220]
   },
   {
     name: 'KPI5',
-    type: 'line',
-    stack: '总量',
-    label: {
-      normal: {
-        show: true,
-        position: 'top'
-      }
-    },
-    areaStyle: {normal: {}},
+    type: 'bar',
+    stack: 'business',
     data: [820, 932, 901, 934, 1290, 1330, 1290]
   }
 ]
@@ -163,6 +130,7 @@ export default {
   name: 'charts',
   data () {
     return {
+      activeNames: [],
       reset: [],
       filterswitch: false,
       charts: '',
@@ -179,6 +147,7 @@ export default {
       this.drawChart('chart', seriesData, RSMS)
     },
     handleChange (val) {
+      // this.activeNames = []
       if (val[1]) {
         let xAxisData = val[1]
         if (xAxisData.indexOf('1DSM1') > -1) {
@@ -210,19 +179,22 @@ export default {
           tooltip: {
             trigger: 'axis',
             axisPointer: {
-              type: 'cross',
-              label: {
-                backgroundColor: '#6a7985'
-              }
+              type: 'shadow'
             }
           },
           legend: {
+            // orient: 'vertical',
             data: ['KPI1', 'KPI2', 'KPI3', 'KPI4', 'KPI5']
           },
+          // grid: {
+          //   left: '3%',
+          //   right: '4%',
+          //   bottom: '3%',
+          //   containLabel: true
+          // },
           xAxis: [
             {
               type: 'category',
-              boundaryGap: false,
               data: xAxisOptions
             }
           ],
