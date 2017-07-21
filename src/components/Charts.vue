@@ -1,14 +1,19 @@
 <template>
   <div id="chart_container">
-    <el-cascader
-      v-model="reset"
-      :options="RSMOptions"
-      @active-item-change="handleItemChange"
-      @change="handleChange"
-      :props="props"
-      class="casader"
-    ></el-cascader>
-    <el-button type="primary" @click="resetSelect">Reset</el-button>
+    <el-collapse>
+      <el-collapse-item title="More Options..." name="1">
+        <el-cascader
+          v-model="reset"
+          :options="RSMOptions"
+          @active-item-change="handleItemChange"
+          @change="handleChange"
+          :props="props"
+          class="casader"
+        ></el-cascader>
+        <el-button type="primary" @click="resetSelect">Reset</el-button>
+      </el-collapse-item>
+    </el-collapse>
+    
     <div id="chart" class="chartCanvas grid-content" v-show="!filterswitch"></div>            
   </div>
 </template>
@@ -161,7 +166,7 @@ export default {
       reset: [],
       filterswitch: false,
       charts: '',
-      RSMOptions: [{label: 'RSM1', dsms: []}, {label: 'RSM2', dsms: []}, {label: 'RSM3', dsms: []}, {label: 'RSM4', dsms: []}, {label: 'RSM5', dsms: []}, {label: 'RSM6', dsms: []}, {label: 'RSM7', dsms: []}],
+      RSMOptions: [],
       props: {
         value: 'label',
         children: 'dsms'
@@ -170,12 +175,10 @@ export default {
   },
   methods: {
     resetSelect () {
-      console.log(this.RSMOptions, this.props)
       this.reset = []
       this.drawChart('chart', seriesData, RSMS)
     },
     handleChange (val) {
-      console.log('changed!', val[1], this.reset)
       if (val[1]) {
         let xAxisData = val[1]
         if (xAxisData.indexOf('1DSM1') > -1) {
@@ -187,7 +190,6 @@ export default {
       }
     },
     handleItemChange (val) {
-      console.log('active item:', val)
       setTimeout(_ => {
         if (val.indexOf('RSM1') > -1 && !this.RSMOptions[0].dsms.length) {
           this.RSMOptions[0].dsms = [{label: '1DSM1'}, {label: '1DSM2'}, {label: '1DSM3'}, {label: '1DSM4'}, {label: '1DSM5'}, {label: '1DSM6'}, {label: '1DSM7'}, {label: '1DSM8'}, {label: '1DSM9'}, {label: '1DSM10'}]
@@ -236,6 +238,10 @@ export default {
   },
 
   mounted () {
+    // todo: get data from backend
+    this.RSMOptions = [{label: 'RSM1', dsms: []}, {label: 'RSM2', dsms: []}, {label: 'RSM3', dsms: []}, {label: 'RSM4', dsms: []}, {label: 'RSM5', dsms: []}, {label: 'RSM6', dsms: []}, {label: 'RSM7', dsms: []}]
+    console.log(this.RSMOptions, this.RSMOptions[0].label)
+
     this.$nextTick(function () {
       this.drawChart('chart', seriesData, RSMS)
       // todo: get default data using ajax
@@ -274,12 +280,14 @@ export default {
 
 @media (max-height: 300px) {
   .chartCanvas{
-    height: 400px; 
+    height: 400px;
+    margin-top: 20px; 
   }
 }
 @media (min-height: 500px) {
   .chartCanvas{
     height: 600px; 
+    margin-top: 30px;
   }
 }
 </style>
