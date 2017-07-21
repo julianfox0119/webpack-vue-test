@@ -34,31 +34,31 @@ const seriesData = [
     data: [340, 314, 292, 368, 380, 560, 520]
   },
   {
-    name: 'KPI1',
+    name: 'Visiting Time',
     type: 'bar',
     stack: 'behavior',
     data: [120, 132, 101, 134, 90, 230, 210]
   },
   {
-    name: 'KPI2',
+    name: 'Report Quantity',
     type: 'bar',
     stack: 'behavior',
     data: [220, 182, 191, 234, 290, 330, 310]
   },
   {
-    name: 'KPI3',
+    name: 'Training Times',
     type: 'bar',
     stack: 'business',
     data: [150, 232, 201, 154, 190, 330, 410]
   },
   {
-    name: 'KPI4',
+    name: 'Vehicle Audit Times',
     type: 'bar',
     stack: 'business',
     data: [320, 332, 301, 334, 390, 330, 320]
   },
   {
-    name: 'KPI5',
+    name: 'Others',
     type: 'bar',
     stack: 'business',
     data: [820, 932, 901, 934, 1290, 1330, 1320]
@@ -72,31 +72,31 @@ const seriesData1 = [
     data: [340, 314, 292, 368, 380, 560, 387, 411, 418, 410]
   },
   {
-    name: 'KPI1',
+    name: 'Visiting Time',
     type: 'bar',
     stack: 'behavior',
     data: [120, 132, 101, 134, 90, 230, 100, 210, 198, 220]
   },
   {
-    name: 'KPI2',
+    name: 'Report Quantity',
     type: 'bar',
     stack: 'behavior',
     data: [220, 182, 191, 234, 290, 330, 287, 201, 220, 190]
   },
   {
-    name: 'KPI3',
+    name: 'Training Times',
     type: 'bar',
     stack: 'business',
     data: [150, 232, 201, 154, 190, 330, 279, 320, 290, 311]
   },
   {
-    name: 'KPI4',
+    name: 'Vehicle Audit Times',
     type: 'bar',
     stack: 'business',
     data: [320, 332, 301, 334, 390, 330, 280, 301, 340, 320]
   },
   {
-    name: 'KPI5',
+    name: 'Others',
     type: 'bar',
     stack: 'business',
     data: [820, 932, 901, 934, 1290, 1330, 1020, 1220, 1190, 1210]
@@ -110,31 +110,31 @@ const seriesData2 = [
     data: [340, 314, 292, 368, 380, 560, 520]
   },
   {
-    name: 'KPI1',
+    name: 'Visiting Time',
     type: 'bar',
     stack: 'behavior',
     data: [120, 132, 101, 134, 90, 230, 310]
   },
   {
-    name: 'KPI2',
+    name: 'Report Quantity',
     type: 'bar',
     stack: 'behavior',
     data: [220, 182, 191, 234, 290, 330, 210]
   },
   {
-    name: 'KPI3',
+    name: 'Training Times',
     type: 'bar',
     stack: 'business',
     data: [150, 232, 201, 154, 190, 330, 429]
   },
   {
-    name: 'KPI4',
+    name: 'Vehicle Audit Times',
     type: 'bar',
     stack: 'business',
     data: [320, 332, 301, 334, 390, 330, 220]
   },
   {
-    name: 'KPI5',
+    name: 'Others',
     type: 'bar',
     stack: 'business',
     data: [820, 932, 901, 934, 1290, 1330, 1290]
@@ -200,7 +200,7 @@ export default {
           },
           legend: {
             // orient: 'vertical',
-            data: ['Behavior', 'KPI1', 'KPI2', 'KPI3', 'KPI4', 'KPI5']
+            data: ['Behavior', 'Visiting Time', 'Report Quantity', 'Training Times', 'Vehicle Audit Times', 'Others']
           },
           xAxis: [
             {
