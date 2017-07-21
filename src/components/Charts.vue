@@ -31,14 +31,12 @@ const seriesData = [
   {
     name: 'Behavior',
     type: 'bar',
-    barWidth: 10,
     data: [340, 314, 292, 368, 380, 560, 520]
   },
   {
     name: 'KPI1',
     type: 'bar',
     stack: 'behavior',
-    barWidth: 10,
     data: [120, 132, 101, 134, 90, 230, 210]
   },
   {
@@ -50,7 +48,6 @@ const seriesData = [
   {
     name: 'KPI3',
     type: 'bar',
-    barWidth: 10,
     stack: 'business',
     data: [150, 232, 201, 154, 190, 330, 410]
   },
@@ -72,7 +69,6 @@ const seriesData1 = [
   {
     name: 'Behavior',
     type: 'bar',
-    barWidth: 10,
     data: [340, 314, 292, 368, 380, 560, 387, 411, 418, 410]
   },
   {
@@ -111,7 +107,6 @@ const seriesData2 = [
   {
     name: 'Behavior',
     type: 'bar',
-    barWidth: 10,
     data: [340, 314, 292, 368, 380, 560, 520]
   },
   {
@@ -164,6 +159,7 @@ export default {
   methods: {
     resetSelect () {
       this.reset = []
+      this.activeNames = []
       this.drawChart('chart', seriesData, RSMS)
     },
     handleChange (val) {
