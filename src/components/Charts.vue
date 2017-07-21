@@ -1,12 +1,14 @@
 <template>
   <div id="chart_container">
     <el-cascader
+      v-model="reset"
       :options="RSMOptions"
       @active-item-change="handleItemChange"
       @change="handleChange"
       :props="props"
       class="casader"
     ></el-cascader>
+    <el-button type="primary" @click="resetSelect">Reset</el-button>
     <div id="chart" class="chartCanvas grid-content" v-show="!filterswitch"></div>            
   </div>
 </template>
@@ -114,28 +116,28 @@ const seriesData2 = [
     type: 'line',
     stack: '总量',
     areaStyle: {normal: {}},
-    data: [120, 132, 101, 134, 90, 230, 210]
+    data: [120, 132, 101, 134, 90, 230, 310]
   },
   {
     name: 'KPI2',
     type: 'line',
     stack: '总量',
     areaStyle: {normal: {}},
-    data: [220, 182, 191, 234, 290, 330, 310]
+    data: [220, 182, 191, 234, 290, 330, 210]
   },
   {
     name: 'KPI3',
     type: 'line',
     stack: '总量',
     areaStyle: {normal: {}},
-    data: [150, 232, 201, 154, 190, 330, 410]
+    data: [150, 232, 201, 154, 190, 330, 429]
   },
   {
     name: 'KPI4',
     type: 'line',
     stack: '总量',
     areaStyle: {normal: {}},
-    data: [320, 332, 301, 334, 390, 330, 320]
+    data: [320, 332, 301, 334, 390, 330, 220]
   },
   {
     name: 'KPI5',
@@ -148,7 +150,7 @@ const seriesData2 = [
       }
     },
     areaStyle: {normal: {}},
-    data: [820, 932, 901, 934, 1290, 1330, 1320]
+    data: [820, 932, 901, 934, 1290, 1330, 1290]
   }
 ]
 
@@ -156,13 +158,9 @@ export default {
   name: 'charts',
   data () {
     return {
-      arrow: 'arrow-down',
-      year: '',
-      endyear: '',
+      reset: [],
       filterswitch: false,
       charts: '',
-      checkboxGroup1: [],
-      rsms: RSMS,
       RSMOptions: [{label: 'RSM1', dsms: []}, {label: 'RSM2', dsms: []}, {label: 'RSM3', dsms: []}, {label: 'RSM4', dsms: []}, {label: 'RSM5', dsms: []}, {label: 'RSM6', dsms: []}, {label: 'RSM7', dsms: []}],
       props: {
         value: 'label',
@@ -171,14 +169,21 @@ export default {
     }
   },
   methods: {
+    resetSelect () {
+      console.log(this.RSMOptions, this.props)
+      this.reset = []
+      this.drawChart('chart', seriesData, RSMS)
+    },
     handleChange (val) {
-      console.log('changed!', val[1])
-      let xAxisData = val[1]
-      if (xAxisData.indexOf('1DSM1') > -1) {
-        this.drawChart('chart', seriesData1, DSMS1)
-      }
-      if (xAxisData.indexOf('2DSM1') > -1) {
-        this.drawChart('chart', seriesData2, DSMS2)
+      console.log('changed!', val[1], this.reset)
+      if (val[1]) {
+        let xAxisData = val[1]
+        if (xAxisData.indexOf('1DSM1') > -1) {
+          this.drawChart('chart', seriesData1, DSMS1)
+        }
+        if (xAxisData.indexOf('2DSM1') > -1) {
+          this.drawChart('chart', seriesData2, DSMS2)
+        }
       }
     },
     handleItemChange (val) {
@@ -232,7 +237,9 @@ export default {
 
   mounted () {
     this.$nextTick(function () {
+      console.log(this.RSMOptions.value)
       this.drawChart('chart', seriesData, RSMS)
+      // todo: get default data using ajax
     })
   }
 }
