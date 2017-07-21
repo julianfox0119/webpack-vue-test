@@ -1,43 +1,48 @@
 <template>
   <div id="chart_container">
-    <el-switch
+     <el-switch
       v-model="filterswitch"
       on-color="#13ce66"
       off-color="#ff4949"
       @change="handleSwithcer" class="filterSwitcher">    
-    </el-switch>
-    <div class="filer_container" v-show="filterswitch">
-      <div id="yearFilter" class="block">
-        <div class="inline-block">
-          <span class="demonstration">年</span>
-          <el-date-picker
-            v-model="year"
-            @change="handleYear"
-            align="right"
-            type="year"
-            placeholder="选择年">
-          </el-date-picker>
+    </el-switch> 
+    <!-- <el-button type="text" icon="arrow-down" @click="handleSwithcer"></el-button> -->
+    <transition name="slide-fade">
+      <div class="filer_container" v-show="filterswitch">
+        <div id="yearFilter" class="block">
+          <div class="inline-block">
+            <span class="demonstration">年</span>
+            <el-date-picker
+              v-model="year"
+              @change="handleYear"
+              align="right"
+              type="year"
+              placeholder="选择年">
+            </el-date-picker>
+          </div>
+          <div class="inline-block" v-if="yearScope">
+            <span class="demonstration">年</span>
+            <el-date-picker
+              v-model="endyear"
+              @change="handleEndYear"
+              align="right"
+              type="year"
+              placeholder="选择年">
+            </el-date-picker>
+          </div>
         </div>
-        <div class="inline-block" v-if="yearScope">
-          <span class="demonstration">年</span>
-          <el-date-picker
-            v-model="endyear"
-            @change="handleEndYear"
-            align="right"
-            type="year"
-            placeholder="选择年">
-          </el-date-picker>
+        <div id="quaterFilter" v-if="quaterSelection">
+            <div style="margin: 15px 0;"></div>
+            <el-checkbox-group v-model="checkboxGroup1" @change="handleQuater">
+              <el-checkbox-button v-for="quater in quaters" :label="quater" :key="quater">{{quater}}</el-checkbox-button>
+            </el-checkbox-group>
         </div>
+        <el-button type="success" class="confirmBtn" @click="handleSwithcer">Confirm</el-button>
       </div>
-      <div id="quaterFilter" v-if="quaterSelection">
-          <div style="margin: 15px 0;"></div>
-          <el-checkbox-group v-model="checkboxGroup1" @change="handleQuater">
-            <el-checkbox-button v-for="quater in quaters" :label="quater" :key="quater">{{quater}}</el-checkbox-button>
-          </el-checkbox-group>
-      </div>
-      <el-button type="success" class="confirmBtn" @click="handleSwithcer">Confirm</el-button>
-    </div>         
-    <div id="chart" class="chartCanvas grid-content" v-show="!filterswitch"></div>      
+    </transition>   
+    <transition name="slide-fade">
+      <div id="chart" class="chartCanvas grid-content" v-show="!filterswitch"></div>  
+    </transition>                
   </div>
 </template>
 
@@ -228,6 +233,7 @@ export default {
   name: 'charts',
   data () {
     return {
+      arrow: 'arrow-down',
       year: '',
       endyear: '',
       filterswitch: false,
@@ -289,8 +295,6 @@ export default {
             data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
           },
           // toolbox: {
-          //   orient: 'horizontal',
-          //   right: '5%',
           //   feature: {
           //     saveAsImage: {}
           //   }
@@ -309,43 +313,6 @@ export default {
           ],
           series: myseriesData
         }
-        // media: [
-        //   {
-        //     option: {
-        //       legend: {
-        //         orient: 'vertical'
-        //       }
-        //     }
-        //   },
-        //   {
-        //     query: {
-        //       minWidth: 600
-        //     },
-        //     option: {
-        //       legend: {
-        //         top: '5%',
-        //         left: '0',
-        //         itemWidth: 10,
-        //         itemHeight: 10,
-        //         orient: 'vertical'
-        //       },
-        //       grid: {
-        //         top: '5%',
-        //         left: '20%'
-        //       }
-        //     }
-        //   },
-        //   {
-        //     query: {
-        //       maxWidth: 600
-        //     },
-        //     option: {
-        //       legend: {
-        //         orient: 'horizontal'
-        //       }
-        //     }
-        //   }
-        // ]
       })
     }
   },
@@ -373,19 +340,11 @@ export default {
 .confirmBtn{
   margin: 5px auto;
 }
-/* @media (min-width: 600px) {
-  .chartCanvas{
-    width: 630px;
-    height: 400px;
-  }
-}
-@media (max-width: 600px) {
-  .chartCanvas{
-    width: 330px;
-    height: 400px;
-  }
-} */
 .inline-block{
-  display:inline-block;
+  display: inline-block;
+}
+.slide-fade-enter, .slide-fade-leave-to
+{
+  opacity: 0;
 }
 </style>
