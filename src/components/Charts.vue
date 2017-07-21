@@ -29,9 +29,16 @@ const DSMS2 = ['2DSM1', '2DSM2', '2DSM3', '2DSM4', '2DSM5', '2DSM6', '2DSM7']
 
 const seriesData = [
   {
+    name: 'Behavior',
+    type: 'bar',
+    barWidth: 10,
+    data: [340, 314, 292, 368, 380, 560, 520]
+  },
+  {
     name: 'KPI1',
     type: 'bar',
     stack: 'behavior',
+    barWidth: 10,
     data: [120, 132, 101, 134, 90, 230, 210]
   },
   {
@@ -43,6 +50,7 @@ const seriesData = [
   {
     name: 'KPI3',
     type: 'bar',
+    barWidth: 10,
     stack: 'business',
     data: [150, 232, 201, 154, 190, 330, 410]
   },
@@ -61,6 +69,12 @@ const seriesData = [
 ]
 
 const seriesData1 = [
+  {
+    name: 'Behavior',
+    type: 'bar',
+    barWidth: 10,
+    data: [340, 314, 292, 368, 380, 560, 387, 411, 418, 410]
+  },
   {
     name: 'KPI1',
     type: 'bar',
@@ -94,6 +108,12 @@ const seriesData1 = [
 ]
 
 const seriesData2 = [
+  {
+    name: 'Behavior',
+    type: 'bar',
+    barWidth: 10,
+    data: [340, 314, 292, 368, 380, 560, 520]
+  },
   {
     name: 'KPI1',
     type: 'bar',
@@ -184,7 +204,7 @@ export default {
           },
           legend: {
             // orient: 'vertical',
-            data: ['KPI1', 'KPI2', 'KPI3', 'KPI4', 'KPI5']
+            data: ['Behavior', 'KPI1', 'KPI2', 'KPI3', 'KPI4', 'KPI5']
           },
           xAxis: [
             {
