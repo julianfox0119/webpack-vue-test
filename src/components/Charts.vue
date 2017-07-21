@@ -237,10 +237,13 @@ export default {
 
   mounted () {
     this.$nextTick(function () {
-      console.log(this.RSMOptions.value)
       this.drawChart('chart', seriesData, RSMS)
       // todo: get default data using ajax
     })
+    window.onresize = () => {
+      console.log('resized!')
+      this.charts.resize()
+    }
   }
 }
 </script>
@@ -248,7 +251,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .chartCanvas{
-  width: 635px;
+  width: 90%;
   height: 400px;
   margin: 0 auto;
   text-align: center;  
@@ -270,3 +273,4 @@ export default {
   opacity: 0;
 }
 </style>
+
