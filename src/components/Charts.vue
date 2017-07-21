@@ -55,35 +55,35 @@ const yearOptions = ['2010', '2011', '2012', '2013', '2014', '2015', '2016', '20
 
 const seriesData = [
   {
-    name: '邮件营销',
+    name: 'KPI1',
     type: 'line',
     stack: '总量',
     areaStyle: {normal: {}},
     data: [120, 132, 101, 134, 90, 230, 210, 250, 300, 180]
   },
   {
-    name: '联盟广告',
+    name: 'KPI2',
     type: 'line',
     stack: '总量',
     areaStyle: {normal: {}},
     data: [220, 182, 191, 234, 290, 330, 310, 335, 270, 430]
   },
   {
-    name: '视频广告',
+    name: 'KPI3',
     type: 'line',
     stack: '总量',
     areaStyle: {normal: {}},
     data: [150, 232, 201, 154, 190, 330, 410, 270, 310, 210]
   },
   {
-    name: '直接访问',
+    name: 'KPI4',
     type: 'line',
     stack: '总量',
     areaStyle: {normal: {}},
     data: [320, 332, 301, 334, 390, 330, 320, 350, 289, 320]
   },
   {
-    name: '搜索引擎',
+    name: 'KPI5',
     type: 'line',
     stack: '总量',
     label: {
@@ -99,35 +99,35 @@ const seriesData = [
 
 const seriesData1 = [
   {
-    name: '邮件营销',
+    name: 'KPI1',
     type: 'line',
     stack: '总量',
     areaStyle: {normal: {}},
     data: [120, 132, 101, 134, 90, 230, 100, 210, 198, 220]
   },
   {
-    name: '联盟广告',
+    name: 'KPI2',
     type: 'line',
     stack: '总量',
     areaStyle: {normal: {}},
     data: [220, 182, 191, 234, 290, 330, 287, 201, 220, 190]
   },
   {
-    name: '视频广告',
+    name: 'KPI3',
     type: 'line',
     stack: '总量',
     areaStyle: {normal: {}},
     data: [150, 232, 201, 154, 190, 330, 279, 320, 290, 311]
   },
   {
-    name: '直接访问',
+    name: 'KPI4',
     type: 'line',
     stack: '总量',
     areaStyle: {normal: {}},
     data: [320, 332, 301, 334, 390, 330, 280, 301, 340, 320]
   },
   {
-    name: '搜索引擎',
+    name: 'KPI5',
     type: 'line',
     stack: '总量',
     label: {
@@ -143,35 +143,35 @@ const seriesData1 = [
 
 const seriesData2 = [
   {
-    name: '邮件营销',
+    name: 'KPI1',
     type: 'line',
     stack: '总量',
     areaStyle: {normal: {}},
     data: [120, 132, 101, 134]
   },
   {
-    name: '联盟广告',
+    name: 'KPI2',
     type: 'line',
     stack: '总量',
     areaStyle: {normal: {}},
     data: [220, 182, 191, 234]
   },
   {
-    name: '视频广告',
+    name: 'KPI3',
     type: 'line',
     stack: '总量',
     areaStyle: {normal: {}},
     data: [150, 232, 201, 154]
   },
   {
-    name: '直接访问',
+    name: 'KPI4',
     type: 'line',
     stack: '总量',
     areaStyle: {normal: {}},
     data: [320, 332, 301, 334]
   },
   {
-    name: '搜索引擎',
+    name: 'KPI5',
     type: 'line',
     stack: '总量',
     label: {
@@ -187,35 +187,35 @@ const seriesData2 = [
 
 const seriesData3 = [
   {
-    name: '邮件营销',
+    name: 'KPI1',
     type: 'line',
     stack: '总量',
     areaStyle: {normal: {}},
     data: [220, 132, 201, 134]
   },
   {
-    name: '联盟广告',
+    name: 'KPI2',
     type: 'line',
     stack: '总量',
     areaStyle: {normal: {}},
     data: [120, 182, 291, 234]
   },
   {
-    name: '视频广告',
+    name: 'KPI3',
     type: 'line',
     stack: '总量',
     areaStyle: {normal: {}},
     data: [350, 232, 201, 254]
   },
   {
-    name: '直接访问',
+    name: 'KPI4',
     type: 'line',
     stack: '总量',
     areaStyle: {normal: {}},
     data: [320, 232, 301, 234]
   },
   {
-    name: '搜索引擎',
+    name: 'KPI5',
     type: 'line',
     stack: '总量',
     label: {
@@ -292,7 +292,7 @@ export default {
             }
           },
           legend: {
-            data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
+            data: ['KPI1', 'KPI2', 'KPI3', 'KPI4', 'KPI5']
           },
           // toolbox: {
           //   feature: {
@@ -331,7 +331,6 @@ export default {
   width: 630px;
   height: 400px;
   margin: 0 auto;
-  padding-top: 20px;
   text-align: center;  
 }
 .filterSwitcher{
