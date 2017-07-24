@@ -271,9 +271,5 @@ export default {
     margin-top: 30px;
   }
 }
-.resetBtn{
-  background-color: #24292e;
-  border-color: #24292e;
-}
 </style>
 
