@@ -2,7 +2,7 @@
   <div id="chart_container">
     <el-collapse v-model="activeNames">
       <el-collapse-item title="More Options..." name="1">
-        <el-select v-model="value3" placeholder="请选择" @change="handleKPIType" class="RSMSelect">
+        <el-select v-model="value3" placeholder="请选择" @change="handleKPIType" class="ASMSelect">
           <el-option
             v-for="item in KPITypes"
             :key="item.value"
@@ -10,9 +10,9 @@
             :value="item.value">
           </el-option>
         </el-select>
-        <el-select v-model="value4" placeholder="请选择" @change="handleRSMSelect" class="RSMSelect">
+        <el-select v-model="value4" placeholder="请选择" @change="handleASMSelect" class="ASMSelect">
           <el-option
-            v-for="item in RSMMulti"
+            v-for="item in ASMMulti"
             :key="item.value"
             :label="item.label"
             :value="item.value">
@@ -46,7 +46,7 @@ import echarts from 'echarts'
 
 // could be dynamic obtain from backend
 // fake data
-const RSMS = ['RSM1', 'RSM2', 'RSM3', 'RSM4', 'RSM5', 'RSM6', 'RSM7']
+const ASMS = ['ASM1', 'ASM2', 'ASM3', 'ASM4', 'ASM5', 'ASM6', 'ASM7']
 const DSMS1 = ['1DSM1', '1DSM2', '1DSM3', '1DSM4', '1DSM5', '1DSM6', '1DSM7', '1DSM8', '1DSM9', '1DSM10']
 const DSMS2 = ['2DSM1', '2DSM2', '2DSM3', '2DSM4', '2DSM5', '2DSM6', '2DSM7']
 let DSMSingle = []
@@ -272,9 +272,9 @@ export default {
       filterswitch: false,
       charts: '',
       charts1: '',
-      RSMOptions: [],
+      ASMOptions: [],
       KPITypes: [{value: 'Behavior', label: 'Behavior'}, {value: 'Business', label: 'Business'}],
-      RSMMulti: [],
+      ASMMulti: [],
       DSMMulti: [],
       Dealers: DealersOptions,
       value3: 'Behavior',
@@ -298,9 +298,9 @@ export default {
       this.showMulti = false
       this.KPIType = 'Behavior'
       if (this.value3 === 'Behavior') {
-        this.drawChart('chart', seriesData, RSMS, this.maxYValue, this.behaviorLegends, 'KPI(%)')
+        this.drawChart('chart', seriesData, ASMS, this.maxYValue, this.behaviorLegends, 'KPI(%)')
       } else {
-        this.drawChart('chart', seriesDataBuz, RSMS, this.maxYValue, this.businessLegends, 'KPI(%)')
+        this.drawChart('chart', seriesDataBuz, ASMS, this.maxYValue, this.businessLegends, 'KPI(%)')
       }
     },
     handleKPIType () {
@@ -309,22 +309,22 @@ export default {
       this.value6 = []
       this.showMulti = false
       if (this.value3 === 'Behavior') {
-        this.drawChart('chart', seriesData, RSMS, this.maxYValue, this.behaviorLegends, 'KPI(%)')
+        this.drawChart('chart', seriesData, ASMS, this.maxYValue, this.behaviorLegends, 'KPI(%)')
       } else {
-        this.drawChart('chart', seriesDataBuz, RSMS, this.maxYValue, this.businessLegends, 'KPI(%)')
+        this.drawChart('chart', seriesDataBuz, ASMS, this.maxYValue, this.businessLegends, 'KPI(%)')
       }
     },
-    handleRSMSelect () {
+    handleASMSelect () {
       if (this.value4) {
         this.showMulti = true
-        if (this.value4 === 'RSM1') {
+        if (this.value4 === 'ASM1') {
           if (this.value3 === 'Behavior') {
             this.drawChart('chart', seriesData1, DSMS1, this.maxYValue, this.behaviorLegends, 'KPI(%)')
           } else {
             this.drawChart('chart', seriesDataBuz1, DSMS1, this.maxYValue, this.businessLegends, 'KPI(%)')
           }
           this.DSMMulti = DSMMulti1
-        } else if (this.value4 === 'RSM2') {
+        } else if (this.value4 === 'ASM2') {
           if (this.value3 === 'Behavior') {
             this.drawChart('chart', seriesData2, DSMS2, this.maxYValue, this.behaviorLegends, 'KPI(%)')
           } else {
@@ -419,14 +419,14 @@ export default {
 
   mounted () {
     // todo: get data from backend
-    this.RSMMulti = [{value: 'RSM1', label: 'RSM1'}, {value: 'RSM2', label: 'RSM2'}, {value: 'RSM3', label: 'RSM3'}, {value: 'RSM4', label: 'RSM4'}, {value: 'RSM5', label: 'RSM5'}, {value: 'RSM6', label: 'RSM6'}, {value: 'RSM7', label: 'RSM7'}]
-    this.RSMOptions = [{label: 'RSM1', dsms: []}, {label: 'RSM2', dsms: []}, {label: 'RSM3', dsms: []}, {label: 'RSM4', dsms: []}, {label: 'RSM5', dsms: []}, {label: 'RSM6', dsms: []}, {label: 'RSM7', dsms: []}]
+    this.ASMMulti = [{value: 'ASM1', label: 'ASM1'}, {value: 'ASM2', label: 'ASM2'}, {value: 'ASM3', label: 'ASM3'}, {value: 'ASM4', label: 'ASM4'}, {value: 'ASM5', label: 'ASM5'}, {value: 'ASM6', label: 'ASM6'}, {value: 'ASM7', label: 'ASM7'}]
+    this.ASMOptions = [{label: 'ASM1', dsms: []}, {label: 'ASM2', dsms: []}, {label: 'ASM3', dsms: []}, {label: 'ASM4', dsms: []}, {label: 'ASM5', dsms: []}, {label: 'ASM6', dsms: []}, {label: 'ASM7', dsms: []}]
 
     this.$nextTick(function () {
       if (this.value3 === 'Behavior') {
-        this.drawChart('chart', seriesData, RSMS, this.maxYValue, this.behaviorLegends, 'KPI(%)')
+        this.drawChart('chart', seriesData, ASMS, this.maxYValue, this.behaviorLegends, 'KPI(%)')
       } else {
-        this.drawChart('chart', seriesDataBuz, RSMS, this.maxYValue, this.businessLegends, 'KPI(%)')
+        this.drawChart('chart', seriesDataBuz, ASMS, this.maxYValue, this.businessLegends, 'KPI(%)')
       }
       // todo: get default data using ajax
     })
@@ -448,7 +448,7 @@ export default {
 .casader{
   margin-bottom: 5px;
 }
-.RSMSelect{
+.ASMSelect{
   width: 110px;
 }
 .MultiSelect{
