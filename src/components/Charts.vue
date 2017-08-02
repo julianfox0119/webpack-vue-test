@@ -311,7 +311,6 @@ export default {
       if (this.value3 === 'Behavior') {
         this.drawChart('chart', seriesData, RSMS, this.maxYValue, this.behaviorLegends, 'KPI(%)')
       } else {
-        // this.drawChart1('chart1', seriesDataBuz, RSMS, this.maxYValue, this.businessLegends, 'KPI(%)')
         this.drawChart('chart', seriesDataBuz, RSMS, this.maxYValue, this.businessLegends, 'KPI(%)')
       }
     },
