@@ -213,6 +213,24 @@ const seriesDataBuz2 = [
   }
 ]
 
+let seriesDataSingleBuz = [
+  {
+    name: 'Penetration Rate',
+    type: 'bar',
+    data: []
+  },
+  {
+    name: 'Agile Rate',
+    type: 'bar',
+    data: []
+  },
+  {
+    name: 'Others Rate',
+    type: 'bar',
+    data: []
+  }
+]
+
 export default {
   name: 'charts',
   data () {
@@ -259,10 +277,8 @@ export default {
       this.showMulti = false
       if (this.value3 === 'Behavior') {
         this.drawChart('chart', seriesData, RSMS, this.maxYValue, this.behaviorLegends, 'KPI(%)')
-        this.charts.resize()
       } else {
         this.drawChart1('chart1', seriesDataBuz, RSMS, this.maxYValue, this.businessLegends, 'KPI(%)')
-        this.charts1.resize()
       }
     },
     handleRSMSelect () {
@@ -293,6 +309,9 @@ export default {
       for (let j = 0; j < seriesDataSingle.length; j++) {
         seriesDataSingle[j].data = []
       }
+      for (let j = 0; j < seriesDataSingleBuz.length; j++) {
+        seriesDataSingleBuz[j].data = []
+      }
       // assign new value
       if (this.value5.length) {
         for (let i = 0; i < this.value5.length; i++) {
@@ -300,11 +319,18 @@ export default {
         }
         for (let i = 0; i < this.value5.length; i++) {
           for (let j = 0; j < seriesDataSingle.length; j++) {
-            seriesDataSingle[j].data.push(13)
+            seriesDataSingle[j].data.push(Math.random() * 100)
+          }
+          for (let j = 0; j < seriesDataSingleBuz.length; j++) {
+            seriesDataSingleBuz[j].data.push(Math.random() * 100)
           }
         }
       }
-      this.drawChart('chart', seriesDataSingle, DSMSingle, this.maxYValue, this.behaviorLegends, 'KPI(%)')
+      if (this.value3 === 'Behavior') {
+        this.drawChart('chart', seriesDataSingle, DSMSingle, this.maxYValue, this.behaviorLegends, 'KPI(%)')
+      } else {
+        this.drawChart1('chart1', seriesDataSingleBuz, DSMSingle, this.maxYValue, this.businessLegends, 'KPI(%)')
+      }
     },
     handleSwithcer () {
       this.filterswitch = !this.filterswitch
@@ -381,8 +407,11 @@ export default {
     this.RSMOptions = [{label: 'RSM1', dsms: []}, {label: 'RSM2', dsms: []}, {label: 'RSM3', dsms: []}, {label: 'RSM4', dsms: []}, {label: 'RSM5', dsms: []}, {label: 'RSM6', dsms: []}, {label: 'RSM7', dsms: []}]
 
     this.$nextTick(function () {
-      this.drawChart('chart', seriesData, RSMS, this.maxYValue, this.behaviorLegends, 'KPI(%)')
-      this.drawChart1('chart1', seriesDataBuz, RSMS, this.maxYValue, this.businessLegends, 'KPI(%)')
+      if (this.value3 === 'Behavior') {
+        this.drawChart('chart', seriesData, RSMS, this.maxYValue, this.behaviorLegends, 'KPI(%)')
+      } else {
+        this.drawChart1('chart1', seriesDataBuz, RSMS, this.maxYValue, this.businessLegends, 'KPI(%)')
+      }
       // todo: get default data using ajax
     })
     window.onresize = () => {
