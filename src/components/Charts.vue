@@ -51,6 +51,7 @@ const RSMS = ['RSM1', 'RSM2', 'RSM3', 'RSM4', 'RSM5', 'RSM6', 'RSM7']
 const DSMS1 = ['1DSM1', '1DSM2', '1DSM3', '1DSM4', '1DSM5', '1DSM6', '1DSM7', '1DSM8', '1DSM9', '1DSM10']
 const DSMS2 = ['2DSM1', '2DSM2', '2DSM3', '2DSM4', '2DSM5', '2DSM6', '2DSM7']
 let DSMSingle = []
+let DealerList = []
 
 const DSMMulti1 = [{value: 'DSM1-1', label: 'DSM1-1'}, {value: 'DSM1-2', label: 'DSM1-2'}, {value: 'DSM1-3', label: 'DSM1-3'}, {value: 'DSM1-4', label: 'DSM1-4'}, {value: 'DSM1-5', label: 'DSM1-5'}, {value: 'DSM1-6', label: 'DSM1-6'}, {value: 'DSM1-7', label: 'DSM1-7'}, {value: 'DSM1-8', label: 'DSM1-8'}, {value: 'DSM1-9', label: 'DSM1-9'}, {value: 'DSM1-10', label: 'DSM1-10'}]
 const DSMMulti2 = [{value: 'DSM2-1', label: 'DSM2-1'}, {value: 'DSM2-2', label: 'DSM2-2'}, {value: 'DSM2-3', label: 'DSM2-3'}, {value: 'DSM2-4', label: 'DSM2-4'}, {value: 'DSM2-5', label: 'DSM2-5'}, {value: 'DSM2-6', label: 'DSM2-6'}, {value: 'DSM2-7', label: 'DSM2-7'}]
@@ -241,6 +242,24 @@ let seriesDataSingleBuz = [
   }
 ]
 
+let seriesDataDealerBuz = [
+  {
+    name: 'Penetration Rate',
+    type: 'bar',
+    data: []
+  },
+  {
+    name: 'Agile Rate',
+    type: 'bar',
+    data: []
+  },
+  {
+    name: 'Others Rate',
+    type: 'bar',
+    data: []
+  }
+]
+
 export default {
   name: 'charts',
   data () {
@@ -334,10 +353,10 @@ export default {
         }
         for (let i = 0; i < this.value5.length; i++) {
           for (let j = 0; j < seriesDataSingle.length; j++) {
-            seriesDataSingle[j].data.push(Math.random() * 100)
+            seriesDataSingle[j].data.push(parseInt(Math.random() * 100))
           }
           for (let j = 0; j < seriesDataSingleBuz.length; j++) {
-            seriesDataSingleBuz[j].data.push(Math.random() * 100)
+            seriesDataSingleBuz[j].data.push(parseInt(Math.random() * 100))
           }
         }
       }
@@ -348,7 +367,21 @@ export default {
       }
     },
     handleMultiDealerSelect () {
-      console.log(this.value6)
+      DealerList = []
+      for (let j = 0; j < seriesDataDealerBuz.length; j++) {
+        seriesDataDealerBuz[j].data = []
+      }
+      if (this.value6.length) {
+        for (let i = 0; i < this.value6.length; i++) {
+          DealerList.push('Dealer' + (i + 1))
+        }
+        for (let i = 0; i < this.value6.length; i++) {
+          for (let j = 0; j < seriesDataDealerBuz.length; j++) {
+            seriesDataDealerBuz[j].data.push(parseInt(Math.random() * 100))
+          }
+        }
+        this.drawChart1('chart1', seriesDataDealerBuz, DealerList, 'dataMax', this.businessLegends, 'KPI')
+      }
     },
     drawChart (id, myseriesData, xAxisOptions, maxYValue, curlegends, yAxisName) {
       if (!this.charts) {
