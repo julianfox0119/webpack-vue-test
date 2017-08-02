@@ -26,6 +26,14 @@
             :value="item.value">
           </el-option>
         </el-select>
+        <el-select v-model="value6" multiple placeholder="请选择" v-if="value5.length === 1 && value3 === 'Business'" @change="handleMultiDealerSelect">
+          <el-option
+            v-for="item in Dealers"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
         <el-button type="primary" @click="resetSelect" class="resetBtn">Reset</el-button>
       </el-collapse-item>
     </el-collapse>    
@@ -46,6 +54,8 @@ let DSMSingle = []
 
 const DSMMulti1 = [{value: 'DSM1-1', label: 'DSM1-1'}, {value: 'DSM1-2', label: 'DSM1-2'}, {value: 'DSM1-3', label: 'DSM1-3'}, {value: 'DSM1-4', label: 'DSM1-4'}, {value: 'DSM1-5', label: 'DSM1-5'}, {value: 'DSM1-6', label: 'DSM1-6'}, {value: 'DSM1-7', label: 'DSM1-7'}, {value: 'DSM1-8', label: 'DSM1-8'}, {value: 'DSM1-9', label: 'DSM1-9'}, {value: 'DSM1-10', label: 'DSM1-10'}]
 const DSMMulti2 = [{value: 'DSM2-1', label: 'DSM2-1'}, {value: 'DSM2-2', label: 'DSM2-2'}, {value: 'DSM2-3', label: 'DSM2-3'}, {value: 'DSM2-4', label: 'DSM2-4'}, {value: 'DSM2-5', label: 'DSM2-5'}, {value: 'DSM2-6', label: 'DSM2-6'}, {value: 'DSM2-7', label: 'DSM2-7'}]
+
+const DealersOptions = [{value: 'Dealer1', label: 'Dealer1'}, {value: 'Dealer2', label: 'Dealer2'}, {value: 'Dealer3', label: 'Dealer3'}]
 
 const seriesData = [
   {
@@ -248,10 +258,13 @@ export default {
       KPITypes: [{value: 'Behavior', label: 'Behavior'}, {value: 'Business', label: 'Business'}],
       RSMMulti: [],
       DSMMulti: [],
+      Dealers: DealersOptions,
       value3: 'Behavior',
       value4: '',
       value5: [],
+      value6: [],
       showMulti: false,
+      showDealers: false,
       props: {
         value: 'label',
         children: 'dsms'
@@ -332,8 +345,8 @@ export default {
         this.drawChart1('chart1', seriesDataSingleBuz, DSMSingle, this.maxYValue, this.businessLegends, 'KPI(%)')
       }
     },
-    handleSwithcer () {
-      this.filterswitch = !this.filterswitch
+    handleMultiDealerSelect () {
+      console.log(this.value6)
     },
     drawChart (id, myseriesData, xAxisOptions, maxYValue, curlegends, yAxisName) {
       if (!this.charts) {
