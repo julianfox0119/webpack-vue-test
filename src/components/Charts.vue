@@ -10,7 +10,7 @@
             :value="item.value">
           </el-option>
         </el-select>
-        <el-select v-model="value5" multiple placeholder="请选择" @change="handleMultiSelect">
+        <el-select v-model="value5" multiple placeholder="请选择" v-if="showMulti && DSMMulti.length" @change="handleMultiSelect">
           <el-option
             v-for="item in DSMMulti"
             :key="item.value"
@@ -42,7 +42,7 @@ import echarts from 'echarts'
 const RSMS = ['RSM1', 'RSM2', 'RSM3', 'RSM4', 'RSM5', 'RSM6', 'RSM7']
 const DSMS1 = ['1DSM1', '1DSM2', '1DSM3', '1DSM4', '1DSM5', '1DSM6', '1DSM7', '1DSM8', '1DSM9', '1DSM10']
 const DSMS2 = ['2DSM1', '2DSM2', '2DSM3', '2DSM4', '2DSM5', '2DSM6', '2DSM7']
-const DSMSingle = ['1DSM1']
+let DSMSingle = []
 
 const DSMMulti1 = [{value: 'DSM1-1', label: 'DSM1-1'}, {value: 'DSM1-2', label: 'DSM1-2'}, {value: 'DSM1-3', label: 'DSM1-3'}, {value: 'DSM1-4', label: 'DSM1-4'}, {value: 'DSM1-5', label: 'DSM1-5'}, {value: 'DSM1-6', label: 'DSM1-6'}, {value: 'DSM1-7', label: 'DSM1-7'}, {value: 'DSM1-8', label: 'DSM1-8'}, {value: 'DSM1-9', label: 'DSM1-9'}, {value: 'DSM1-10', label: 'DSM1-10'}]
 const DSMMulti2 = [{value: 'DSM2-1', label: 'DSM2-1'}, {value: 'DSM2-2', label: 'DSM2-2'}, {value: 'DSM2-3', label: 'DSM2-3'}, {value: 'DSM2-4', label: 'DSM2-4'}, {value: 'DSM2-5', label: 'DSM2-5'}, {value: 'DSM2-6', label: 'DSM2-6'}, {value: 'DSM2-7', label: 'DSM2-7'}]
@@ -123,44 +123,6 @@ const seriesData1 = [
   }
 ]
 
-const seriesDataSingle = [
-  {
-    name: 'Behavior',
-    type: 'bar',
-    data: [34]
-  },
-  {
-    name: 'Visiting Time',
-    type: 'bar',
-    stack: 'behavior',
-    data: [12]
-  },
-  {
-    name: 'Report Quantity',
-    type: 'bar',
-    stack: 'behavior',
-    data: [22]
-  },
-  {
-    name: 'Training Times',
-    type: 'bar',
-    stack: 'business',
-    data: [15]
-  },
-  {
-    name: 'Vehicle Audit Times',
-    type: 'bar',
-    stack: 'business',
-    data: [32]
-  },
-  {
-    name: 'Others',
-    type: 'bar',
-    stack: 'business',
-    data: [82]
-  }
-]
-
 const seriesData2 = [
   {
     name: 'Behavior',
@@ -199,6 +161,44 @@ const seriesData2 = [
   }
 ]
 
+let seriesDataSingle = [
+  {
+    name: 'Behavior',
+    type: 'bar',
+    data: []
+  },
+  {
+    name: 'Visiting Time',
+    type: 'bar',
+    stack: 'behavior',
+    data: []
+  },
+  {
+    name: 'Report Quantity',
+    type: 'bar',
+    stack: 'behavior',
+    data: []
+  },
+  {
+    name: 'Training Times',
+    type: 'bar',
+    stack: 'business',
+    data: []
+  },
+  {
+    name: 'Vehicle Audit Times',
+    type: 'bar',
+    stack: 'business',
+    data: []
+  },
+  {
+    name: 'Others',
+    type: 'bar',
+    stack: 'business',
+    data: []
+  }
+]
+
 export default {
   name: 'charts',
   data () {
@@ -212,6 +212,7 @@ export default {
       DSMMulti: [],
       value4: '',
       value5: [],
+      showMulti: false,
       props: {
         value: 'label',
         children: 'dsms'
@@ -247,18 +248,31 @@ export default {
     },
     handleRSMSelect () {
       if (this.value4) {
+        this.showMulti = true
         if (this.value4 === 'RSM1') {
           this.drawChart('chart', seriesData1, DSMS1)
           this.DSMMulti = DSMMulti1
-        }
-        if (this.value4 === 'RSM2') {
+        } else if (this.value4 === 'RSM2') {
           this.drawChart('chart', seriesData2, DSMS2)
           this.DSMMulti = DSMMulti2
+        } else {
+          this.DSMMulti = []
         }
       }
     },
     handleMultiSelect () {
+      DSMSingle = []
       if (this.value5.length) {
+        for (let i = 0; i < this.value5.length; i++) {
+          DSMSingle.push('1DSM' + i)
+        }
+        for (let j = 0; j < seriesDataSingle.length; j++) {
+          for (let i = 0; i < this.value5.length; i++) {
+            seriesDataSingle[j].data.push(13)
+          }
+        }
+
+        console.log(seriesDataSingle, DSMSingle)
         this.drawChart('chart', seriesDataSingle, DSMSingle)
       }
     },
