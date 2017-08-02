@@ -338,6 +338,7 @@ export default {
       }
     },
     handleMultiSelect () {
+      this.value6 = []
       // reset array
       DSMSingle = []
       for (let j = 0; j < seriesDataSingle.length; j++) {
