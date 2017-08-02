@@ -2,6 +2,22 @@
   <div id="chart_container">
     <el-collapse v-model="activeNames">
       <el-collapse-item title="More Options..." name="1">
+        <el-select v-model="value4" placeholder="请选择" @change="handleRSMSelect">
+          <el-option
+            v-for="item in RSMMulti"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
+        <el-select v-model="value5" multiple placeholder="请选择" @change="handleMultiSelect">
+          <el-option
+            v-for="item in DSMMulti"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
         <el-cascader
           v-model="reset"
           :options="RSMOptions"
@@ -9,6 +25,7 @@
           @change="handleChange"
           :props="props"
           class="casader"
+          v-show=false
         ></el-cascader>
         <el-button type="primary" @click="resetSelect" class="resetBtn">Reset</el-button>
       </el-collapse-item>
@@ -25,42 +42,46 @@ import echarts from 'echarts'
 const RSMS = ['RSM1', 'RSM2', 'RSM3', 'RSM4', 'RSM5', 'RSM6', 'RSM7']
 const DSMS1 = ['1DSM1', '1DSM2', '1DSM3', '1DSM4', '1DSM5', '1DSM6', '1DSM7', '1DSM8', '1DSM9', '1DSM10']
 const DSMS2 = ['2DSM1', '2DSM2', '2DSM3', '2DSM4', '2DSM5', '2DSM6', '2DSM7']
+const DSMSingle = ['1DSM1']
+
+const DSMMulti1 = [{value: 'DSM1-1', label: 'DSM1-1'}, {value: 'DSM1-2', label: 'DSM1-2'}, {value: 'DSM1-3', label: 'DSM1-3'}, {value: 'DSM1-4', label: 'DSM1-4'}, {value: 'DSM1-5', label: 'DSM1-5'}, {value: 'DSM1-6', label: 'DSM1-6'}, {value: 'DSM1-7', label: 'DSM1-7'}, {value: 'DSM1-8', label: 'DSM1-8'}, {value: 'DSM1-9', label: 'DSM1-9'}, {value: 'DSM1-10', label: 'DSM1-10'}]
+const DSMMulti2 = [{value: 'DSM2-1', label: 'DSM2-1'}, {value: 'DSM2-2', label: 'DSM2-2'}, {value: 'DSM2-3', label: 'DSM2-3'}, {value: 'DSM2-4', label: 'DSM2-4'}, {value: 'DSM2-5', label: 'DSM2-5'}, {value: 'DSM2-6', label: 'DSM2-6'}, {value: 'DSM2-7', label: 'DSM2-7'}]
 
 const seriesData = [
   {
     name: 'Behavior',
     type: 'bar',
-    data: [340, 314, 292, 368, 380, 560, 520]
+    data: [34, 31, 29, 36, 38, 56, 52]
   },
   {
     name: 'Visiting Time',
     type: 'bar',
     stack: 'behavior',
-    data: [120, 132, 101, 134, 90, 230, 210]
+    data: [12, 13, 10, 13, 9, 23, 21]
   },
   {
     name: 'Report Quantity',
     type: 'bar',
     stack: 'behavior',
-    data: [220, 182, 191, 234, 290, 330, 310]
+    data: [22, 18, 19, 23, 29, 33, 31]
   },
   {
     name: 'Training Times',
     type: 'bar',
     stack: 'business',
-    data: [150, 232, 201, 154, 190, 330, 410]
+    data: [15, 23, 20, 15, 19, 33, 41]
   },
   {
     name: 'Vehicle Audit Times',
     type: 'bar',
     stack: 'business',
-    data: [320, 332, 301, 334, 390, 330, 320]
+    data: [32, 33, 30, 33, 39, 33, 32]
   },
   {
     name: 'Others',
     type: 'bar',
     stack: 'business',
-    data: [820, 932, 901, 934, 1290, 1330, 1320]
+    data: [82, 93, 90, 93, 129, 133, 132]
   }
 ]
 
@@ -68,37 +89,75 @@ const seriesData1 = [
   {
     name: 'Behavior',
     type: 'bar',
-    data: [340, 314, 292, 368, 380, 560, 387, 411, 418, 410]
+    data: [34, 31, 29, 36, 38, 56, 38, 41, 41, 41]
   },
   {
     name: 'Visiting Time',
     type: 'bar',
     stack: 'behavior',
-    data: [120, 132, 101, 134, 90, 230, 100, 210, 198, 220]
+    data: [12, 13, 10, 13, 9, 23, 10, 21, 19, 22]
   },
   {
     name: 'Report Quantity',
     type: 'bar',
     stack: 'behavior',
-    data: [220, 182, 191, 234, 290, 330, 287, 201, 220, 190]
+    data: [22, 18, 19, 23, 29, 33, 28, 20, 22, 19]
   },
   {
     name: 'Training Times',
     type: 'bar',
     stack: 'business',
-    data: [150, 232, 201, 154, 190, 330, 279, 320, 290, 311]
+    data: [15, 23, 20, 15, 19, 33, 27, 32, 29, 31]
   },
   {
     name: 'Vehicle Audit Times',
     type: 'bar',
     stack: 'business',
-    data: [320, 332, 301, 334, 390, 330, 280, 301, 340, 320]
+    data: [32, 33, 30, 33, 39, 33, 28, 30, 34, 32]
   },
   {
     name: 'Others',
     type: 'bar',
     stack: 'business',
-    data: [820, 932, 901, 934, 1290, 1330, 1020, 1220, 1190, 1210]
+    data: [82, 93, 90, 93, 129, 133, 102, 122, 119, 121]
+  }
+]
+
+const seriesDataSingle = [
+  {
+    name: 'Behavior',
+    type: 'bar',
+    data: [34]
+  },
+  {
+    name: 'Visiting Time',
+    type: 'bar',
+    stack: 'behavior',
+    data: [12]
+  },
+  {
+    name: 'Report Quantity',
+    type: 'bar',
+    stack: 'behavior',
+    data: [22]
+  },
+  {
+    name: 'Training Times',
+    type: 'bar',
+    stack: 'business',
+    data: [15]
+  },
+  {
+    name: 'Vehicle Audit Times',
+    type: 'bar',
+    stack: 'business',
+    data: [32]
+  },
+  {
+    name: 'Others',
+    type: 'bar',
+    stack: 'business',
+    data: [82]
   }
 ]
 
@@ -106,37 +165,37 @@ const seriesData2 = [
   {
     name: 'Behavior',
     type: 'bar',
-    data: [340, 314, 292, 368, 380, 560, 520]
+    data: [34, 31, 29, 36, 38, 56, 52]
   },
   {
     name: 'Visiting Time',
     type: 'bar',
     stack: 'behavior',
-    data: [120, 132, 101, 134, 90, 230, 310]
+    data: [12, 13, 10, 13, 9, 23, 31]
   },
   {
     name: 'Report Quantity',
     type: 'bar',
     stack: 'behavior',
-    data: [220, 182, 191, 234, 290, 330, 210]
+    data: [22, 18, 19, 23, 29, 33, 21]
   },
   {
     name: 'Training Times',
     type: 'bar',
     stack: 'business',
-    data: [150, 232, 201, 154, 190, 330, 429]
+    data: [15, 23, 20, 15, 19, 33, 42]
   },
   {
     name: 'Vehicle Audit Times',
     type: 'bar',
     stack: 'business',
-    data: [320, 332, 301, 334, 390, 330, 220]
+    data: [32, 33, 30, 33, 39, 33, 22]
   },
   {
     name: 'Others',
     type: 'bar',
     stack: 'business',
-    data: [820, 932, 901, 934, 1290, 1330, 1290]
+    data: [82, 93, 90, 93, 129, 133, 129]
   }
 ]
 
@@ -149,6 +208,10 @@ export default {
       filterswitch: false,
       charts: '',
       RSMOptions: [],
+      RSMMulti: [],
+      DSMMulti: [],
+      value4: '',
+      value5: [],
       props: {
         value: 'label',
         children: 'dsms'
@@ -158,6 +221,8 @@ export default {
   methods: {
     resetSelect () {
       this.reset = []
+      this.value4 = ''
+      this.value5 = []
       // this.activeNames = []
       this.drawChart('chart', seriesData, RSMS)
     },
@@ -166,10 +231,10 @@ export default {
       if (val[1]) {
         let xAxisData = val[1]
         if (xAxisData.indexOf('1DSM1') > -1) {
-          this.drawChart('chart', seriesData1, DSMS1)
+          this.drawChart('chart', seriesDataSingle, DSMSingle)
         }
         if (xAxisData.indexOf('2DSM1') > -1) {
-          this.drawChart('chart', seriesData2, DSMS2)
+          this.drawChart('chart', seriesDataSingle, DSMSingle)
         }
       }
     },
@@ -181,6 +246,22 @@ export default {
           this.RSMOptions[1].dsms = [{label: '2DSM1'}, {label: '2DSM2'}, {label: '2DSM3'}, {label: '2DSM4'}, {label: '2DSM5'}, {label: '2DSM6'}, {label: '2DSM7'}]
         }
       }, 300)
+    },
+    handleRSMSelect () {
+      console.log(this.value4)
+      if (this.value4 === 'RSM1') {
+        this.drawChart('chart', seriesData1, DSMS1)
+        this.DSMMulti = DSMMulti1
+        console.log(this.DSMMulti)
+      }
+      if (this.value4 === 'RSM2') {
+        this.drawChart('chart', seriesData2, DSMS2)
+        this.DSMMulti = DSMMulti2
+        console.log(this.DSMMulti)
+      }
+    },
+    handleMultiSelect () {
+      console.log(this.value5)
     },
     handleSwithcer () {
       this.filterswitch = !this.filterswitch
@@ -220,8 +301,8 @@ export default {
 
   mounted () {
     // todo: get data from backend
+    this.RSMMulti = [{value: 'RSM1', label: 'RSM1'}, {value: 'RSM2', label: 'RSM2'}, {value: 'RSM3', label: 'RSM3'}, {value: 'RSM4', label: 'RSM4'}, {value: 'RSM5', label: 'RSM5'}, {value: 'RSM6', label: 'RSM6'}, {value: 'RSM7', label: 'RSM7'}]
     this.RSMOptions = [{label: 'RSM1', dsms: []}, {label: 'RSM2', dsms: []}, {label: 'RSM3', dsms: []}, {label: 'RSM4', dsms: []}, {label: 'RSM5', dsms: []}, {label: 'RSM6', dsms: []}, {label: 'RSM7', dsms: []}]
-    console.log(this.RSMOptions, this.RSMOptions[0].label)
 
     this.$nextTick(function () {
       this.drawChart('chart', seriesData, RSMS)
