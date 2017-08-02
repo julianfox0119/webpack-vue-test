@@ -18,7 +18,7 @@
             :value="item.value">
           </el-option>
         </el-select>
-        <el-select v-model="value5" multiple placeholder="请选择" v-if="showMulti && DSMMulti.length" @change="handleMultiSelect">
+        <el-select v-model="value5" multiple placeholder="请选择" v-if="showMulti && DSMMulti.length" @change="handleMultiSelect" class="MultiSelect">
           <el-option
             v-for="item in DSMMulti"
             :key="item.value"
@@ -26,7 +26,7 @@
             :value="item.value">
           </el-option>
         </el-select>
-        <el-select v-model="value6" multiple placeholder="请选择" v-if="value5.length === 1 && value3 === 'Business'" @change="handleMultiDealerSelect">
+        <el-select v-model="value6" multiple placeholder="请选择" v-if="value5.length === 1 && value3 === 'Business'" @change="handleMultiDealerSelect" class="MultiSelect">
           <el-option
             v-for="item in Dealers"
             :key="item.value"
@@ -276,6 +276,7 @@ export default {
       this.value3 = 'Behavior'
       this.value4 = ''
       this.value5 = []
+      this.value6 = []
       this.showMulti = false
       this.KPIType = 'Behavior'
       if (this.value3 === 'Behavior') {
@@ -287,6 +288,7 @@ export default {
     handleKPIType () {
       this.value4 = ''
       this.value5 = []
+      this.value6 = []
       this.showMulti = false
       if (this.value3 === 'Behavior') {
         this.drawChart('chart', seriesData, RSMS, this.maxYValue, this.behaviorLegends, 'KPI(%)')
@@ -448,6 +450,9 @@ export default {
 }
 .RSMSelect{
   width: 110px;
+}
+.MultiSelect{
+  width: 130px;
 }
 .filterSwitcher{
   margin-bottom: 10px;
