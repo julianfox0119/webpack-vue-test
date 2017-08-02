@@ -56,32 +56,32 @@ const seriesData = [
   {
     name: 'Visiting Time',
     type: 'bar',
-    stack: 'behavior',
+    // stack: 'behavior',
     data: [12, 13, 10, 13, 9, 23, 21]
   },
   {
     name: 'Report Quantity',
     type: 'bar',
-    stack: 'behavior',
+    // stack: 'behavior',
     data: [22, 18, 19, 23, 29, 33, 31]
   },
   {
     name: 'Training Times',
     type: 'bar',
-    stack: 'business',
+    // stack: 'business',
     data: [15, 23, 20, 15, 19, 33, 41]
   },
   {
     name: 'Vehicle Audit Times',
     type: 'bar',
-    stack: 'business',
+    // stack: 'business',
     data: [32, 33, 30, 33, 39, 33, 32]
   },
   {
     name: 'Others',
     type: 'bar',
-    stack: 'business',
-    data: [82, 93, 90, 93, 129, 133, 132]
+    // stack: 'business',
+    data: [82, 93, 90, 93, 29, 33, 32]
   }
 ]
 
@@ -94,32 +94,32 @@ const seriesData1 = [
   {
     name: 'Visiting Time',
     type: 'bar',
-    stack: 'behavior',
+    // stack: 'behavior',
     data: [12, 13, 10, 13, 9, 23, 10, 21, 19, 22]
   },
   {
     name: 'Report Quantity',
     type: 'bar',
-    stack: 'behavior',
+    // stack: 'behavior',
     data: [22, 18, 19, 23, 29, 33, 28, 20, 22, 19]
   },
   {
     name: 'Training Times',
     type: 'bar',
-    stack: 'business',
+    // stack: 'business',
     data: [15, 23, 20, 15, 19, 33, 27, 32, 29, 31]
   },
   {
     name: 'Vehicle Audit Times',
     type: 'bar',
-    stack: 'business',
+    // stack: 'business',
     data: [32, 33, 30, 33, 39, 33, 28, 30, 34, 32]
   },
   {
     name: 'Others',
     type: 'bar',
-    stack: 'business',
-    data: [82, 93, 90, 93, 129, 133, 102, 122, 119, 121]
+    // stack: 'business',
+    data: [82, 93, 90, 93, 29, 33, 2, 22, 19, 21]
   }
 ]
 
@@ -132,32 +132,32 @@ const seriesData2 = [
   {
     name: 'Visiting Time',
     type: 'bar',
-    stack: 'behavior',
+    // stack: 'behavior',
     data: [12, 13, 10, 13, 9, 23, 31]
   },
   {
     name: 'Report Quantity',
     type: 'bar',
-    stack: 'behavior',
+    // stack: 'behavior',
     data: [22, 18, 19, 23, 29, 33, 21]
   },
   {
     name: 'Training Times',
     type: 'bar',
-    stack: 'business',
+    // stack: 'business',
     data: [15, 23, 20, 15, 19, 33, 42]
   },
   {
     name: 'Vehicle Audit Times',
     type: 'bar',
-    stack: 'business',
+    // stack: 'business',
     data: [32, 33, 30, 33, 39, 33, 22]
   },
   {
     name: 'Others',
     type: 'bar',
-    stack: 'business',
-    data: [82, 93, 90, 93, 129, 133, 129]
+    // stack: 'business',
+    data: [82, 93, 90, 93, 29, 33, 29]
   }
 ]
 
@@ -170,31 +170,31 @@ let seriesDataSingle = [
   {
     name: 'Visiting Time',
     type: 'bar',
-    stack: 'behavior',
+    // stack: 'behavior',
     data: []
   },
   {
     name: 'Report Quantity',
     type: 'bar',
-    stack: 'behavior',
+    // stack: 'behavior',
     data: []
   },
   {
     name: 'Training Times',
     type: 'bar',
-    stack: 'business',
+    // stack: 'business',
     data: []
   },
   {
     name: 'Vehicle Audit Times',
     type: 'bar',
-    stack: 'business',
+    // stack: 'business',
     data: []
   },
   {
     name: 'Others',
     type: 'bar',
-    stack: 'business',
+    // stack: 'business',
     data: []
   }
 ]
@@ -308,6 +308,7 @@ export default {
           ],
           yAxis: [
             {
+              max: 100,
               type: 'value'
             }
           ],
