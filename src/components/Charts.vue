@@ -223,6 +223,7 @@ export default {
     resetSelect () {
       this.value4 = ''
       this.value5 = []
+      this.showMulti = false
       this.drawChart('chart', seriesData, RSMS)
     },
     handleChange (val) {
@@ -261,20 +262,24 @@ export default {
       }
     },
     handleMultiSelect () {
+      // reset array
       DSMSingle = []
+      for (let j = 0; j < seriesDataSingle.length; j++) {
+        seriesDataSingle[j].data = []
+      }
+      // assign new value
       if (this.value5.length) {
         for (let i = 0; i < this.value5.length; i++) {
-          DSMSingle.push('1DSM' + i)
+          DSMSingle.push('1DSM' + (i + 1))
         }
-        for (let j = 0; j < seriesDataSingle.length; j++) {
-          for (let i = 0; i < this.value5.length; i++) {
+        for (let i = 0; i < this.value5.length; i++) {
+          for (let j = 0; j < seriesDataSingle.length; j++) {
             seriesDataSingle[j].data.push(13)
           }
         }
-
-        console.log(seriesDataSingle, DSMSingle)
-        this.drawChart('chart', seriesDataSingle, DSMSingle)
       }
+      console.log(seriesDataSingle, DSMSingle)
+      this.drawChart('chart', seriesDataSingle, DSMSingle)
     },
     handleSwithcer () {
       this.filterswitch = !this.filterswitch
