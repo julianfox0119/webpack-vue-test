@@ -254,7 +254,6 @@ export default {
       }
     },
     handleKPIType () {
-      console.log(this.value3)
       this.value4 = ''
       this.value5 = []
       this.showMulti = false
@@ -314,7 +313,6 @@ export default {
       if (!this.charts) {
         this.charts = echarts.init(document.getElementById(id))
       }
-      console.log('chart')
       this.charts.setOption({
         baseOption: {
           tooltip: {
@@ -347,7 +345,6 @@ export default {
       if (!this.charts1) {
         this.charts1 = echarts.init(document.getElementById(id))
       }
-      console.log('chart1')
       this.charts1.setOption({
         baseOption: {
           tooltip: {
