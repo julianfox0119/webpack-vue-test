@@ -37,8 +37,7 @@
         <el-button type="primary" @click="resetSelect" class="resetBtn">Reset</el-button>
       </el-collapse-item>
     </el-collapse>    
-    <div id="chart" class="chartCanvas grid-content" v-show="value3 === 'Behavior'"></div>   
-    <div id="chart1" class="chartCanvas grid-content" v-show="value3 === 'Business'"></div>            
+    <div id="chart" class="chartCanvas grid-content"></div>   
   </div>
 </template>
 
@@ -301,7 +300,7 @@ export default {
       if (this.value3 === 'Behavior') {
         this.drawChart('chart', seriesData, RSMS, this.maxYValue, this.behaviorLegends, 'KPI(%)')
       } else {
-        this.drawChart1('chart1', seriesDataBuz, RSMS, this.maxYValue, this.businessLegends, 'KPI(%)')
+        this.drawChart('chart', seriesDataBuz, RSMS, this.maxYValue, this.businessLegends, 'KPI(%)')
       }
     },
     handleKPIType () {
@@ -312,7 +311,8 @@ export default {
       if (this.value3 === 'Behavior') {
         this.drawChart('chart', seriesData, RSMS, this.maxYValue, this.behaviorLegends, 'KPI(%)')
       } else {
-        this.drawChart1('chart1', seriesDataBuz, RSMS, this.maxYValue, this.businessLegends, 'KPI(%)')
+        // this.drawChart1('chart1', seriesDataBuz, RSMS, this.maxYValue, this.businessLegends, 'KPI(%)')
+        this.drawChart('chart', seriesDataBuz, RSMS, this.maxYValue, this.businessLegends, 'KPI(%)')
       }
     },
     handleRSMSelect () {
@@ -322,14 +322,14 @@ export default {
           if (this.value3 === 'Behavior') {
             this.drawChart('chart', seriesData1, DSMS1, this.maxYValue, this.behaviorLegends, 'KPI(%)')
           } else {
-            this.drawChart1('chart1', seriesDataBuz1, DSMS1, this.maxYValue, this.businessLegends, 'KPI(%)')
+            this.drawChart('chart', seriesDataBuz1, DSMS1, this.maxYValue, this.businessLegends, 'KPI(%)')
           }
           this.DSMMulti = DSMMulti1
         } else if (this.value4 === 'RSM2') {
           if (this.value3 === 'Behavior') {
             this.drawChart('chart', seriesData2, DSMS2, this.maxYValue, this.behaviorLegends, 'KPI(%)')
           } else {
-            this.drawChart1('chart1', seriesDataBuz2, DSMS2, this.maxYValue, this.businessLegends, 'KPI(%)')
+            this.drawChart('chart', seriesDataBuz2, DSMS2, this.maxYValue, this.businessLegends, 'KPI(%)')
           }
           this.DSMMulti = DSMMulti2
         } else {
@@ -364,7 +364,7 @@ export default {
       if (this.value3 === 'Behavior') {
         this.drawChart('chart', seriesDataSingle, DSMSingle, this.maxYValue, this.behaviorLegends, 'KPI(%)')
       } else {
-        this.drawChart1('chart1', seriesDataSingleBuz, DSMSingle, this.maxYValue, this.businessLegends, 'KPI(%)')
+        this.drawChart('chart', seriesDataSingleBuz, DSMSingle, this.maxYValue, this.businessLegends, 'KPI(%)')
       }
     },
     handleMultiDealerSelect () {
@@ -381,7 +381,7 @@ export default {
             seriesDataDealerBuz[j].data.push(parseInt(Math.random() * 100))
           }
         }
-        this.drawChart1('chart1', seriesDataDealerBuz, DealerList, 'dataMax', this.businessLegends, 'KPI')
+        this.drawChart('chart', seriesDataDealerBuz, DealerList, 'dataMax', this.businessLegends, 'KPI')
       }
     },
     drawChart (id, myseriesData, xAxisOptions, maxYValue, curlegends, yAxisName) {
@@ -414,39 +414,7 @@ export default {
           ],
           series: myseriesData
         }
-      })
-    },
-    drawChart1 (id, myseriesData, xAxisOptions, maxYValue, curlegends, yAxisName) {
-      if (!this.charts1) {
-        this.charts1 = echarts.init(document.getElementById(id))
-      }
-      this.charts1.setOption({
-        baseOption: {
-          tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-              type: 'shadow'
-            }
-          },
-          legend: {
-            data: curlegends
-          },
-          xAxis: [
-            {
-              type: 'category',
-              data: xAxisOptions
-            }
-          ],
-          yAxis: [
-            {
-              name: yAxisName,
-              max: maxYValue,
-              type: 'value'
-            }
-          ],
-          series: myseriesData
-        }
-      })
+      }, true)
     }
   },
 
@@ -459,13 +427,12 @@ export default {
       if (this.value3 === 'Behavior') {
         this.drawChart('chart', seriesData, RSMS, this.maxYValue, this.behaviorLegends, 'KPI(%)')
       } else {
-        this.drawChart1('chart1', seriesDataBuz, RSMS, this.maxYValue, this.businessLegends, 'KPI(%)')
+        this.drawChart('chart', seriesDataBuz, RSMS, this.maxYValue, this.businessLegends, 'KPI(%)')
       }
       // todo: get default data using ajax
     })
     window.onresize = () => {
       this.charts.resize()
-      this.charts1.resize()
     }
   }
 }
