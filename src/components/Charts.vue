@@ -220,10 +220,8 @@ export default {
   },
   methods: {
     resetSelect () {
-      this.reset = []
       this.value4 = ''
       this.value5 = []
-      // this.activeNames = []
       this.drawChart('chart', seriesData, RSMS)
     },
     handleChange (val) {
@@ -248,20 +246,21 @@ export default {
       }, 300)
     },
     handleRSMSelect () {
-      console.log(this.value4)
-      if (this.value4 === 'RSM1') {
-        this.drawChart('chart', seriesData1, DSMS1)
-        this.DSMMulti = DSMMulti1
-        console.log(this.DSMMulti)
-      }
-      if (this.value4 === 'RSM2') {
-        this.drawChart('chart', seriesData2, DSMS2)
-        this.DSMMulti = DSMMulti2
-        console.log(this.DSMMulti)
+      if (this.value4) {
+        if (this.value4 === 'RSM1') {
+          this.drawChart('chart', seriesData1, DSMS1)
+          this.DSMMulti = DSMMulti1
+        }
+        if (this.value4 === 'RSM2') {
+          this.drawChart('chart', seriesData2, DSMS2)
+          this.DSMMulti = DSMMulti2
+        }
       }
     },
     handleMultiSelect () {
-      console.log(this.value5)
+      if (this.value5.length) {
+        this.drawChart('chart', seriesDataSingle, DSMSingle)
+      }
     },
     handleSwithcer () {
       this.filterswitch = !this.filterswitch
