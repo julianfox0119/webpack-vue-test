@@ -2,7 +2,15 @@
   <div id="chart_container">
     <el-collapse v-model="activeNames">
       <el-collapse-item title="More Options..." name="1">
-        <el-select v-model="value4" placeholder="请选择" @change="handleRSMSelect">
+        <el-select v-model="value3" placeholder="请选择" @change="handleKPIType" class="RSMSelect">
+          <el-option
+            v-for="item in KPITypes"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
+        <el-select v-model="value4" placeholder="请选择" @change="handleRSMSelect" class="RSMSelect">
           <el-option
             v-for="item in RSMMulti"
             :key="item.value"
@@ -18,19 +26,11 @@
             :value="item.value">
           </el-option>
         </el-select>
-        <el-cascader
-          v-model="reset"
-          :options="RSMOptions"
-          @active-item-change="handleItemChange"
-          @change="handleChange"
-          :props="props"
-          class="casader"
-          v-show=false
-        ></el-cascader>
         <el-button type="primary" @click="resetSelect" class="resetBtn">Reset</el-button>
       </el-collapse-item>
     </el-collapse>    
-    <div id="chart" class="chartCanvas grid-content" v-show="!filterswitch"></div>            
+    <div id="chart" class="chartCanvas grid-content" v-show="value3 === 'Behavior'"></div>   
+    <div id="chart1" class="chartCanvas grid-content" v-show="value3 === 'Business'"></div>            
   </div>
 </template>
 
@@ -49,153 +49,167 @@ const DSMMulti2 = [{value: 'DSM2-1', label: 'DSM2-1'}, {value: 'DSM2-2', label: 
 
 const seriesData = [
   {
-    name: 'Behavior',
-    type: 'bar',
-    data: [34, 31, 29, 36, 38, 56, 52]
-  },
-  {
     name: 'Visiting Time',
     type: 'bar',
-    // stack: 'behavior',
     data: [12, 13, 10, 13, 9, 23, 21]
   },
   {
     name: 'Report Quantity',
     type: 'bar',
-    // stack: 'behavior',
     data: [22, 18, 19, 23, 29, 33, 31]
   },
   {
     name: 'Training Times',
     type: 'bar',
-    // stack: 'business',
     data: [15, 23, 20, 15, 19, 33, 41]
   },
   {
     name: 'Vehicle Audit Times',
     type: 'bar',
-    // stack: 'business',
     data: [32, 33, 30, 33, 39, 33, 32]
   },
   {
     name: 'Others',
     type: 'bar',
-    // stack: 'business',
     data: [82, 93, 90, 93, 29, 33, 32]
   }
 ]
 
 const seriesData1 = [
   {
-    name: 'Behavior',
-    type: 'bar',
-    data: [34, 31, 29, 36, 38, 56, 38, 41, 41, 41]
-  },
-  {
     name: 'Visiting Time',
     type: 'bar',
-    // stack: 'behavior',
     data: [12, 13, 10, 13, 9, 23, 10, 21, 19, 22]
   },
   {
     name: 'Report Quantity',
     type: 'bar',
-    // stack: 'behavior',
     data: [22, 18, 19, 23, 29, 33, 28, 20, 22, 19]
   },
   {
     name: 'Training Times',
     type: 'bar',
-    // stack: 'business',
     data: [15, 23, 20, 15, 19, 33, 27, 32, 29, 31]
   },
   {
     name: 'Vehicle Audit Times',
     type: 'bar',
-    // stack: 'business',
     data: [32, 33, 30, 33, 39, 33, 28, 30, 34, 32]
   },
   {
     name: 'Others',
     type: 'bar',
-    // stack: 'business',
     data: [82, 93, 90, 93, 29, 33, 2, 22, 19, 21]
   }
 ]
 
 const seriesData2 = [
   {
-    name: 'Behavior',
-    type: 'bar',
-    data: [34, 31, 29, 36, 38, 56, 52]
-  },
-  {
     name: 'Visiting Time',
     type: 'bar',
-    // stack: 'behavior',
     data: [12, 13, 10, 13, 9, 23, 31]
   },
   {
     name: 'Report Quantity',
     type: 'bar',
-    // stack: 'behavior',
     data: [22, 18, 19, 23, 29, 33, 21]
   },
   {
     name: 'Training Times',
     type: 'bar',
-    // stack: 'business',
     data: [15, 23, 20, 15, 19, 33, 42]
   },
   {
     name: 'Vehicle Audit Times',
     type: 'bar',
-    // stack: 'business',
     data: [32, 33, 30, 33, 39, 33, 22]
   },
   {
     name: 'Others',
     type: 'bar',
-    // stack: 'business',
     data: [82, 93, 90, 93, 29, 33, 29]
   }
 ]
 
 let seriesDataSingle = [
   {
-    name: 'Behavior',
-    type: 'bar',
-    data: []
-  },
-  {
     name: 'Visiting Time',
     type: 'bar',
-    // stack: 'behavior',
     data: []
   },
   {
     name: 'Report Quantity',
     type: 'bar',
-    // stack: 'behavior',
     data: []
   },
   {
     name: 'Training Times',
     type: 'bar',
-    // stack: 'business',
     data: []
   },
   {
     name: 'Vehicle Audit Times',
     type: 'bar',
-    // stack: 'business',
     data: []
   },
   {
     name: 'Others',
     type: 'bar',
-    // stack: 'business',
     data: []
+  }
+]
+
+const seriesDataBuz = [
+  {
+    name: 'Penetration Rate',
+    type: 'bar',
+    data: [12, 13, 10, 13, 9, 23, 21]
+  },
+  {
+    name: 'Agile Rate',
+    type: 'bar',
+    data: [22, 18, 19, 23, 29, 33, 31]
+  },
+  {
+    name: 'Others Rate',
+    type: 'bar',
+    data: [82, 93, 90, 93, 29, 33, 32]
+  }
+]
+
+const seriesDataBuz1 = [
+  {
+    name: 'Penetration Rate',
+    type: 'bar',
+    data: [12, 13, 10, 13, 9, 23, 10, 21, 19, 22]
+  },
+  {
+    name: 'Agile Rate',
+    type: 'bar',
+    data: [22, 18, 19, 23, 29, 33, 28, 20, 22, 19]
+  },
+  {
+    name: 'Others Rate',
+    type: 'bar',
+    data: [15, 23, 20, 15, 19, 33, 27, 32, 29, 31]
+  }
+]
+
+const seriesDataBuz2 = [
+  {
+    name: 'Penetration Rate',
+    type: 'bar',
+    data: [12, 13, 10, 13, 9, 23, 31]
+  },
+  {
+    name: 'Agile Rate',
+    type: 'bar',
+    data: [22, 18, 19, 23, 29, 33, 21]
+  },
+  {
+    name: 'Others Rate',
+    type: 'bar',
+    data: [15, 23, 20, 15, 19, 33, 42]
   }
 ]
 
@@ -203,13 +217,20 @@ export default {
   name: 'charts',
   data () {
     return {
+      behaviorLegends: ['Visiting Time', 'Report Quantity', 'Training Times', 'Vehicle Audit Times', 'Others'],
+      businessLegends: ['Penetration Rate', 'Agile Rate', 'Others Rate'],
+      maxYValue: 100,
+      KPIType: 'Behavior',
       activeNames: [],
       reset: [],
       filterswitch: false,
       charts: '',
+      charts1: '',
       RSMOptions: [],
+      KPITypes: [{value: 'Behavior', label: 'Behavior'}, {value: 'Business', label: 'Business'}],
       RSMMulti: [],
       DSMMulti: [],
+      value3: 'Behavior',
       value4: '',
       value5: [],
       showMulti: false,
@@ -221,40 +242,46 @@ export default {
   },
   methods: {
     resetSelect () {
+      this.value3 = 'Behavior'
       this.value4 = ''
       this.value5 = []
       this.showMulti = false
-      this.drawChart('chart', seriesData, RSMS)
-    },
-    handleChange (val) {
-      // this.activeNames = []
-      if (val[1]) {
-        let xAxisData = val[1]
-        if (xAxisData.indexOf('1DSM1') > -1) {
-          this.drawChart('chart', seriesDataSingle, DSMSingle)
-        }
-        if (xAxisData.indexOf('2DSM1') > -1) {
-          this.drawChart('chart', seriesDataSingle, DSMSingle)
-        }
+      this.KPIType = 'Behavior'
+      if (this.value3 === 'Behavior') {
+        this.drawChart('chart', seriesData, RSMS, this.maxYValue, this.behaviorLegends, 'KPI(%)')
+      } else {
+        this.drawChart1('chart1', seriesDataBuz, RSMS, this.maxYValue, this.businessLegends, 'KPI(%)')
       }
     },
-    handleItemChange (val) {
-      setTimeout(_ => {
-        if (val.indexOf('RSM1') > -1 && !this.RSMOptions[0].dsms.length) {
-          this.RSMOptions[0].dsms = [{label: '1DSM1'}, {label: '1DSM2'}, {label: '1DSM3'}, {label: '1DSM4'}, {label: '1DSM5'}, {label: '1DSM6'}, {label: '1DSM7'}, {label: '1DSM8'}, {label: '1DSM9'}, {label: '1DSM10'}]
-        } else if (val.indexOf('RSM2') > -1 && !this.RSMOptions[1].dsms.length) {
-          this.RSMOptions[1].dsms = [{label: '2DSM1'}, {label: '2DSM2'}, {label: '2DSM3'}, {label: '2DSM4'}, {label: '2DSM5'}, {label: '2DSM6'}, {label: '2DSM7'}]
-        }
-      }, 300)
+    handleKPIType () {
+      console.log(this.value3)
+      this.value4 = ''
+      this.value5 = []
+      this.showMulti = false
+      if (this.value3 === 'Behavior') {
+        this.drawChart('chart', seriesData, RSMS, this.maxYValue, this.behaviorLegends, 'KPI(%)')
+        this.charts.resize()
+      } else {
+        this.drawChart1('chart1', seriesDataBuz, RSMS, this.maxYValue, this.businessLegends, 'KPI(%)')
+        this.charts1.resize()
+      }
     },
     handleRSMSelect () {
       if (this.value4) {
         this.showMulti = true
         if (this.value4 === 'RSM1') {
-          this.drawChart('chart', seriesData1, DSMS1)
+          if (this.value3 === 'Behavior') {
+            this.drawChart('chart', seriesData1, DSMS1, this.maxYValue, this.behaviorLegends, 'KPI(%)')
+          } else {
+            this.drawChart1('chart1', seriesDataBuz1, DSMS1, this.maxYValue, this.businessLegends, 'KPI(%)')
+          }
           this.DSMMulti = DSMMulti1
         } else if (this.value4 === 'RSM2') {
-          this.drawChart('chart', seriesData2, DSMS2)
+          if (this.value3 === 'Behavior') {
+            this.drawChart('chart', seriesData2, DSMS2, this.maxYValue, this.behaviorLegends, 'KPI(%)')
+          } else {
+            this.drawChart1('chart1', seriesDataBuz2, DSMS2, this.maxYValue, this.businessLegends, 'KPI(%)')
+          }
           this.DSMMulti = DSMMulti2
         } else {
           this.DSMMulti = []
@@ -278,16 +305,16 @@ export default {
           }
         }
       }
-      console.log(seriesDataSingle, DSMSingle)
-      this.drawChart('chart', seriesDataSingle, DSMSingle)
+      this.drawChart('chart', seriesDataSingle, DSMSingle, this.maxYValue, this.behaviorLegends, 'KPI(%)')
     },
     handleSwithcer () {
       this.filterswitch = !this.filterswitch
     },
-    drawChart (id, myseriesData, xAxisOptions) {
+    drawChart (id, myseriesData, xAxisOptions, maxYValue, curlegends, yAxisName) {
       if (!this.charts) {
         this.charts = echarts.init(document.getElementById(id))
       }
+      console.log('chart')
       this.charts.setOption({
         baseOption: {
           tooltip: {
@@ -297,8 +324,7 @@ export default {
             }
           },
           legend: {
-            // orient: 'vertical',
-            data: ['Behavior', 'Visiting Time', 'Report Quantity', 'Training Times', 'Vehicle Audit Times', 'Others']
+            data: curlegends
           },
           xAxis: [
             {
@@ -308,7 +334,41 @@ export default {
           ],
           yAxis: [
             {
-              max: 100,
+              name: yAxisName,
+              max: maxYValue,
+              type: 'value'
+            }
+          ],
+          series: myseriesData
+        }
+      })
+    },
+    drawChart1 (id, myseriesData, xAxisOptions, maxYValue, curlegends, yAxisName) {
+      if (!this.charts1) {
+        this.charts1 = echarts.init(document.getElementById(id))
+      }
+      console.log('chart1')
+      this.charts1.setOption({
+        baseOption: {
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              type: 'shadow'
+            }
+          },
+          legend: {
+            data: curlegends
+          },
+          xAxis: [
+            {
+              type: 'category',
+              data: xAxisOptions
+            }
+          ],
+          yAxis: [
+            {
+              name: yAxisName,
+              max: maxYValue,
               type: 'value'
             }
           ],
@@ -324,11 +384,13 @@ export default {
     this.RSMOptions = [{label: 'RSM1', dsms: []}, {label: 'RSM2', dsms: []}, {label: 'RSM3', dsms: []}, {label: 'RSM4', dsms: []}, {label: 'RSM5', dsms: []}, {label: 'RSM6', dsms: []}, {label: 'RSM7', dsms: []}]
 
     this.$nextTick(function () {
-      this.drawChart('chart', seriesData, RSMS)
+      this.drawChart('chart', seriesData, RSMS, this.maxYValue, this.behaviorLegends, 'KPI(%)')
+      this.drawChart1('chart1', seriesDataBuz, RSMS, this.maxYValue, this.businessLegends, 'KPI(%)')
       // todo: get default data using ajax
     })
     window.onresize = () => {
       this.charts.resize()
+      this.charts1.resize()
     }
   }
 }
@@ -344,6 +406,9 @@ export default {
 }
 .casader{
   margin-bottom: 5px;
+}
+.RSMSelect{
+  width: 110px;
 }
 .filterSwitcher{
   margin-bottom: 10px;
