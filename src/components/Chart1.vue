@@ -312,7 +312,6 @@ export default {
       }
     },
     handleDealers () {
-      console.log(this.DSMSelect)
       if (this.DSMSelect) {
         if (this.DSMSelect === 'DSM1') {
           this.drawChart('chart', seriesDataDMS1, DEALEARS, this.maxYValue, BuzLegends, this.KPIBuzSelect)
