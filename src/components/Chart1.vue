@@ -26,6 +26,14 @@
                         :value="item">
                     </el-option>
                 </el-select>
+                <el-select v-model="DSMSelect" placeholder="请选择" @change="handleDealers" class="SingleSelect" v-if="KPIvalue === 'Business' && KPIBuzSelect !== ''">
+                    <el-option
+                        v-for="item in DealersDetail"
+                        :key="item"
+                        :label="item"
+                        :value="item">
+                    </el-option>
+                </el-select>
                 <el-button type="primary" @click="resetSelect" class="resetBtn">Reset</el-button>
             </el-collapse-item>    
         </el-collapse>
@@ -208,10 +216,43 @@ const seriesDataAmen = [
   }
 ]
 
+const seriesDataDMS1 = [
+  {
+    name: 'Business Target',
+    type: 'bar',
+    itemStyle: {
+      normal: {
+        color: 'rgba(0,0,0,0.2)'
+      }
+    },
+    label: {
+      normal: {
+        show: false
+      }
+    },
+    silent: true,
+    // barWidth: 30,
+    barGap: '-100%',
+    data: [100, 100, 100]
+  },
+  {
+    name: 'Business Completed',
+    type: 'bar',
+    // barWidth: 30,
+    itemStyle: {
+      normal: {
+        color: 'rgba(255,147,155,0.7)'
+      }
+    },
+    data: [42, 10, 45]
+  }
+]
+
 const behaviorLegends = ['Training & Coaching', 'Dealer Risk Control', 'Dealer Setup Retail', 'Dealer Setup Wholesale', 'Rapport Building', 'Other']
 const businessLegends = ['Aumen Retail Pen.', 'Retail Agility Pen.', 'Retail OL Pen.', 'Wholesale Pen.', 'Used Car Finan Pen.', 'FC Error Ratio', 'Return File Pending Ratio', 'Wechat Registration Ratio', 'Web Pos Util']
 
 const DSMS = ['DSM1', 'DSM2', 'DSM3', 'DSM4', 'DSM5', 'DSM6', 'DSM7']
+const DEALEARS = ['Dealer1', 'Dealer2', 'Dealer3']
 const BehLegends = ['Behavior Target', 'Behavior Completed']
 const BuzLegends = ['Business Target', 'Business Completed']
 
@@ -224,9 +265,11 @@ export default {
       activeNames: [],
       KPIDetail: behaviorLegends,
       KPIBuzDetail: businessLegends,
+      DealersDetail: DSMS,
       KPIvalue: 'Behavior',
       KPISelect: '',
       KPIBuzSelect: '',
+      DSMSelect: '',
       KPITypes: ['Behavior', 'Business']
     }
   },
@@ -264,6 +307,16 @@ export default {
           this.drawChart('chart', seriesDataAmen, DSMS, this.maxYValue, BuzLegends, this.KPIBuzSelect)
         } else {
           this.drawChart('chart', [], DSMS, this.maxYValue, [], this.KPIBuzSelect)
+        }
+      }
+    },
+    handleDealers () {
+      console.log(this.DSMSelect)
+      if (this.DSMSelect) {
+        if (this.DSMSelect === 'DSM1') {
+          this.drawChart('chart', seriesDataDMS1, DEALEARS, this.maxYValue, BuzLegends, this.KPIBuzSelect)
+        } else {
+          this.drawChart('chart', [], DEALEARS, this.maxYValue, [], this.KPIBuzSelect)
         }
       }
     },
