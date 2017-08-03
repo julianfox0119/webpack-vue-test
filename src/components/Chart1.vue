@@ -38,7 +38,7 @@ import echarts from 'echarts'
 
 const seriesData = [
   {
-    name: 'Target',
+    name: 'Behavior Target',
     type: 'bar',
     itemStyle: {
       normal: {
@@ -60,7 +60,7 @@ const seriesData = [
     data: [50, 60, 50, 40, 60, 50]
   },
   {
-    name: 'Completed',
+    name: 'Behavior Completed',
     type: 'bar',
     // barWidth: 40,
     itemStyle: {
@@ -74,7 +74,7 @@ const seriesData = [
 
 const seriesDataTraining = [
   {
-    name: 'Target Training',
+    name: 'Behavior Target',
     type: 'bar',
     itemStyle: {
       normal: {
@@ -96,7 +96,7 @@ const seriesDataTraining = [
     data: [50, 50, 50, 50, 50, 50, 50]
   },
   {
-    name: 'Completed Training',
+    name: 'Behavior Completed',
     type: 'bar',
     // barWidth: 40,
     itemStyle: {
@@ -110,7 +110,7 @@ const seriesDataTraining = [
 
 const seriesDataRapport = [
   {
-    name: 'Target Rapport Building',
+    name: 'Behavior Target',
     type: 'bar',
     itemStyle: {
       normal: {
@@ -132,7 +132,7 @@ const seriesDataRapport = [
     data: [60, 60, 60, 60, 60, 60, 60]
   },
   {
-    name: 'Completed Rapport Building',
+    name: 'Behavior Completed',
     type: 'bar',
     // barWidth: 40,
     itemStyle: {
@@ -212,9 +212,7 @@ const behaviorLegends = ['Training & Coaching', 'Dealer Risk Control', 'Dealer S
 const businessLegends = ['Aumen Retail Pen.', 'Retail Agility Pen.', 'Retail OL Pen.', 'Wholesale Pen.', 'Used Car Finan Pen.', 'FC Error Ratio', 'Return File Pending Ratio', 'Wechat Registration Ratio', 'Web Pos Util']
 
 const DSMS = ['DSM1', 'DSM2', 'DSM3', 'DSM4', 'DSM5', 'DSM6', 'DSM7']
-const BehLegends = ['Target', 'Completed']
-const TrainingLegends = ['Target Training', 'Completed Training']
-const RapportLegends = ['Target Rapport Building', 'Completed Rapport Building']
+const BehLegends = ['Behavior Target', 'Behavior Completed']
 const BuzLegends = ['Business Target', 'Business Completed']
 
 export default {
@@ -252,9 +250,9 @@ export default {
     handleKPIDetail () {
       if (this.KPISelect) {
         if (this.KPISelect === 'Training & Coaching') {
-          this.drawChart('chart', seriesDataTraining, DSMS, this.maxYValue, TrainingLegends, this.KPISelect)
+          this.drawChart('chart', seriesDataTraining, DSMS, this.maxYValue, BehLegends, this.KPISelect)
         } else if (this.KPISelect === 'Rapport Building') {
-          this.drawChart('chart', seriesDataRapport, DSMS, this.maxYValue, RapportLegends, this.KPISelect)
+          this.drawChart('chart', seriesDataRapport, DSMS, this.maxYValue, BehLegends, this.KPISelect)
         } else {
           this.drawChart('chart', [], DSMS, this.maxYValue, [], this.KPISelect)
         }
