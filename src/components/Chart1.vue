@@ -2,7 +2,7 @@
     <div id="chart_container">
         <el-collapse v-model="activeNames">
             <el-collapse-item title="More Options..." name="1">
-                <el-select v-model="KPIvalue" placeholder="请选择" @change="handleKPIType" class="ASMSelect">
+                <el-select v-model="KPIvalue" placeholder="请选择" @change="handleKPIType" class="SingleSelect">
                     <el-option
                         v-for="item in KPITypes"
                         :key="item.value"
@@ -10,9 +10,9 @@
                         :value="item.value">
                     </el-option>
                 </el-select>
-                <el-select v-model="DSMSel" multiple placeholder="请选择" class="MultiSelect">
+                <el-select v-model="KPISelect" placeholder="请选择" @change="handleKPIDetail" class="SingleSelect">
                     <el-option
-                        v-for="item in DSMS"
+                        v-for="item in KPIDetail"
                         :key="item"
                         :label="item"
                         :value="item">
@@ -28,9 +28,8 @@
 <script>
 import echarts from 'echarts'
 
-let ASM = ['ASM-Name']
-
 const behaviorLegends = ['Training & Coaching', 'Dealer Risk Control', 'Dealer Setup Retail', 'Dealer Setup Wholesale', 'Rapport Building', 'Other']
+const DSMS = ['DSM1', 'DSM2', 'DSM3', 'DSM4', 'DSM5', 'DSM6', 'DSM7']
 
 const seriesData = [
   {
@@ -44,7 +43,10 @@ const seriesData = [
     label: {
       normal: {
         show: true,
-        position: 'insideTop'
+        position: ['33%', -20],
+        textStyle: {
+          color: '#333333'
+        }
       }
     },
     silent: true,
@@ -65,6 +67,39 @@ const seriesData = [
   }
 ]
 
+const seriesDataTraining = [
+  {
+    name: 'Target',
+    type: 'bar',
+    itemStyle: {
+      normal: {
+        color: 'rgba(0,0,0,0.2)'
+      }
+    },
+    label: {
+      normal: {
+        show: true,
+        position: 'Top'
+      }
+    },
+    silent: true,
+    barWidth: 40,
+    barGap: '-100%',
+    data: [50, 50, 50, 50, 50, 50, 50]
+  },
+  {
+    name: 'Completed',
+    type: 'bar',
+    barWidth: 40,
+    itemStyle: {
+      normal: {
+        color: 'rgba(108,247,168,0.7)'
+      }
+    },
+    data: [12, 22, 15, 32, 33, 50, 41]
+  }
+]
+
 const currentLegends = ['Completed', 'Target']
 
 export default {
@@ -74,10 +109,9 @@ export default {
       behaviorLegends: behaviorLegends,
       maxYValue: 100,
       activeNames: [],
-      KPIDetail: '',
-      DSMS: ['1DSM1', '1DSM2', '1DSM3', '1DSM4', '1DSM5', '1DSM6', '1DSM7', '1DSM8', '1DSM9', '1DSM10'],
-      DSMSel: [],
+      KPIDetail: behaviorLegends,
       KPIvalue: 'Behavior',
+      KPISelect: [],
       KPITypes: [{value: 'Behavior', label: 'Behavior'}, {value: 'Business', label: 'Business'}]
     }
   },
@@ -85,10 +119,14 @@ export default {
     resetSelect () {
       this.KPIvalue = 'Behavior'
       this.DSMSel = []
-      this.drawChart('chart', seriesData, ASM, this.maxYValue, this.behaviorLegends, 'Average Score')
+      this.drawChart('chart', seriesData, behaviorLegends, this.maxYValue, this.behaviorLegends, 'Average Score')
     },
     handleKPIType () {
       console.log(this.KPIvalue)
+    },
+    handleKPIDetail () {
+      console.log(this.KPISelect)
+      this.drawChart('chart', seriesDataTraining, DSMS, this.maxYValue, this.behaviorLegends, this.KPISelect)
     },
     drawChart (id, myseriesData, xAxisOptions, maxYValue, curlegends, yAxisName) {
       if (!this.charts) {
@@ -115,9 +153,8 @@ export default {
           },
           xAxis: [
             {
-              name: 'ASM',
               type: 'category',
-              data: curlegends,
+              data: xAxisOptions,
               axisLabel: {
                 // rotate: 20,
                 formatter: function (val) {
@@ -140,7 +177,7 @@ export default {
   },
   mounted () {
     this.$nextTick(function () {
-      this.drawChart('chart', seriesData, ASM, this.maxYValue, this.behaviorLegends, 'Average Score')
+      this.drawChart('chart', seriesData, behaviorLegends, this.maxYValue, this.behaviorLegends, 'Average Score')
     })
     window.onresize = () => {
       this.charts.resize()
@@ -160,7 +197,7 @@ export default {
 .casader{
   margin-bottom: 5px;
 }
-.ASMSelect{
+.SingleSelect{
   width: 110px;
 }
 .MultiSelect{
