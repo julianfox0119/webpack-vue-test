@@ -55,14 +55,14 @@ const seriesData = [
       }
     },
     silent: true,
-    barWidth: 40,
+    // barWidth: 40,
     barGap: '-100%',
     data: [50, 60, 50, 40, 60, 50]
   },
   {
     name: 'Completed',
     type: 'bar',
-    barWidth: 40,
+    // barWidth: 40,
     itemStyle: {
       normal: {
         color: 'rgba(108,247,168,0.7)'
@@ -91,14 +91,14 @@ const seriesDataTraining = [
       }
     },
     silent: true,
-    barWidth: 40,
+    // barWidth: 40,
     barGap: '-100%',
     data: [50, 50, 50, 50, 50, 50, 50]
   },
   {
     name: 'Completed Training',
     type: 'bar',
-    barWidth: 40,
+    // barWidth: 40,
     itemStyle: {
       normal: {
         color: 'rgba(108,247,168,0.7)'
@@ -127,20 +127,52 @@ const seriesDataRapport = [
       }
     },
     silent: true,
-    barWidth: 40,
+    // barWidth: 40,
     barGap: '-100%',
     data: [60, 60, 60, 60, 60, 60, 60]
   },
   {
     name: 'Completed Rapport Building',
     type: 'bar',
-    barWidth: 40,
+    // barWidth: 40,
     itemStyle: {
       normal: {
         color: 'rgba(108,247,168,0.7)'
       }
     },
     data: [42, 50, 45, 40, 47, 37, 43]
+  }
+]
+
+const seriesDataBuz = [
+  {
+    name: 'Business Target',
+    type: 'bar',
+    itemStyle: {
+      normal: {
+        color: 'rgba(0,0,0,0.2)'
+      }
+    },
+    label: {
+      normal: {
+        show: false
+      }
+    },
+    silent: true,
+    // barWidth: 30,
+    barGap: '-100%',
+    data: [100, 100, 100, 100, 100, 100, 100, 100, 100]
+  },
+  {
+    name: 'Business Completed',
+    type: 'bar',
+    // barWidth: 30,
+    itemStyle: {
+      normal: {
+        color: 'rgba(108,247,255,0.7)'
+      }
+    },
+    data: [42, 50, 45, 40, 47, 37, 43, 60, 83]
   }
 ]
 
@@ -151,6 +183,7 @@ const DSMS = ['DSM1', 'DSM2', 'DSM3', 'DSM4', 'DSM5', 'DSM6', 'DSM7']
 const currentLegends = ['Target', 'Completed']
 const TrainingLegends = ['Target Training', 'Completed Training']
 const RapportLegends = ['Target Rapport Building', 'Completed Rapport Building']
+const BuzLegends = ['Business Target', 'Business Completed']
 
 export default {
   name: 'charts',
@@ -171,6 +204,7 @@ export default {
     resetSelect () {
       this.KPIvalue = 'Behavior'
       this.KPISelect = ''
+      this.KPIBuzSelect = ''
       this.drawChart('chart', seriesData, behaviorLegends, this.maxYValue, currentLegends, 'Average Score')
     },
     handleKPIType () {
@@ -179,7 +213,7 @@ export default {
         if (this.KPIvalue === 'Behavior') {
           this.drawChart('chart', seriesData, behaviorLegends, this.maxYValue, currentLegends, 'Average Score')
         } else {
-          this.drawChart('chart', [], businessLegends, this.maxYValue, currentLegends, 'Average Score')
+          this.drawChart('chart', seriesDataBuz, businessLegends, this.maxYValue, BuzLegends, 'Average Score')
         }
       }
     },
@@ -226,6 +260,7 @@ export default {
               data: xAxisOptions,
               axisLabel: {
                 // rotate: 20,
+                interval: 0,
                 formatter: function (val) {
                   return val.split(' ').join('\n')
                 }
@@ -242,7 +277,7 @@ export default {
           ],
           series: myseriesData
         }
-      }, true)
+      })
     }
   },
   mounted () {
@@ -259,7 +294,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .chartCanvas{
-  width: 95%;
+  width: 100%;
   height: 400px;
   margin: 0 auto;
   text-align: center;  
