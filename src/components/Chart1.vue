@@ -10,9 +10,17 @@
                         :value="item">
                     </el-option>
                 </el-select>
-                <el-select v-model="KPISelect" placeholder="请选择" @change="handleKPIDetail" class="LongSingleSelect">
+                <el-select v-model="KPISelect" placeholder="请选择" @change="handleKPIDetail" class="LongSingleSelect" v-if="KPIvalue === 'Behavior'">
                     <el-option
                         v-for="item in KPIDetail"
+                        :key="item"
+                        :label="item"
+                        :value="item">
+                    </el-option>
+                </el-select>
+                <el-select v-model="KPIBuzSelect" placeholder="请选择" @change="handleKPIBuzDetail" class="LongSingleSelect" v-if="KPIvalue === 'Business'">
+                    <el-option
+                        v-for="item in KPIBuzDetail"
                         :key="item"
                         :label="item"
                         :value="item">
@@ -27,9 +35,6 @@
 
 <script>
 import echarts from 'echarts'
-
-const behaviorLegends = ['Training & Coaching', 'Dealer Risk Control', 'Dealer Setup Retail', 'Dealer Setup Wholesale', 'Rapport Building', 'Other']
-const DSMS = ['DSM1', 'DSM2', 'DSM3', 'DSM4', 'DSM5', 'DSM6', 'DSM7']
 
 const seriesData = [
   {
@@ -139,6 +144,10 @@ const seriesDataRapport = [
   }
 ]
 
+const behaviorLegends = ['Training & Coaching', 'Dealer Risk Control', 'Dealer Setup Retail', 'Dealer Setup Wholesale', 'Rapport Building', 'Other']
+const businessLegends = ['Aumen Retail Pen.', 'Retail Agility Pen.', 'Retail OL Pen.', 'Wholesale Pen.', 'Used Car Finan Pen.', 'FC Error Ratio', 'Return File Pending Ratio', 'Wechat Registration Ratio', 'Web Pos Util']
+
+const DSMS = ['DSM1', 'DSM2', 'DSM3', 'DSM4', 'DSM5', 'DSM6', 'DSM7']
 const currentLegends = ['Target', 'Completed']
 const TrainingLegends = ['Target Training', 'Completed Training']
 const RapportLegends = ['Target Rapport Building', 'Completed Rapport Building']
@@ -151,8 +160,10 @@ export default {
       maxYValue: 100,
       activeNames: [],
       KPIDetail: behaviorLegends,
+      KPIBuzDetail: businessLegends,
       KPIvalue: 'Behavior',
       KPISelect: '',
+      KPIBuzSelect: '',
       KPITypes: ['Behavior', 'Business']
     }
   },
@@ -164,6 +175,13 @@ export default {
     },
     handleKPIType () {
     //   console.log(this.KPIvalue)
+      if (this.KPIvalue) {
+        if (this.KPIvalue === 'Behavior') {
+          this.drawChart('chart', seriesData, behaviorLegends, this.maxYValue, currentLegends, 'Average Score')
+        } else {
+          this.drawChart('chart', [], businessLegends, this.maxYValue, currentLegends, 'Average Score')
+        }
+      }
     },
     handleKPIDetail () {
       if (this.KPISelect) {
@@ -175,6 +193,9 @@ export default {
           this.drawChart('chart', [], DSMS, this.maxYValue, [], this.KPISelect)
         }
       }
+    },
+    handleKPIBuzDetail () {
+      console.log(this.KPIBuzSelect)
     },
     drawChart (id, myseriesData, xAxisOptions, maxYValue, curLegends, yAxisName) {
       if (!this.charts) {
