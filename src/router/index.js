@@ -4,6 +4,7 @@ import Hello from '@/components/Hello'
 import World from '@/components/World'
 import Resource from '@/components/Resource'
 import Charts from '@/components/Charts'
+import Chart1 from '@/components/Chart1'
 
 Vue.use(Router)
 
@@ -29,6 +30,11 @@ export default new Router({
       path: '/charts',
       name: 'Charts',
       component: Charts
+    },
+    {
+      path: '/chart1',
+      name: 'Chart1',
+      component: Chart1
     }
   ]
 })
