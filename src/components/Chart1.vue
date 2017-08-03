@@ -2,7 +2,7 @@
     <div id="chart_container">
         <el-collapse v-model="activeNames">
             <el-collapse-item title="More Options..." name="1">
-                <el-select v-model="KPIvalue" placeholder="请选择" @change="handleKPIType" class="SingleSelect">
+                <el-select v-model="KPIvalue" placeholder="请选择"  @change="handleKPIType" class="SingleSelect">
                     <el-option
                         v-for="item in KPITypes"
                         :key="item"
@@ -10,7 +10,7 @@
                         :value="item">
                     </el-option>
                 </el-select>
-                <el-select v-model="KPISelect" placeholder="请选择" @change="handleKPIDetail" class="LongSingleSelect" v-if="KPIvalue === 'Behavior'">
+                <el-select v-model="KPISelect" placeholder="请选择" clearable @change="handleKPIDetail" class="LongSingleSelect" v-if="KPIvalue === 'Behavior'">
                     <el-option
                         v-for="item in KPIDetail"
                         :key="item"
@@ -18,7 +18,7 @@
                         :value="item">
                     </el-option>
                 </el-select>
-                <el-select v-model="KPIBuzSelect" placeholder="请选择" @change="handleKPIBuzDetail" class="LongSingleSelect" v-if="KPIvalue === 'Business'">
+                <el-select v-model="KPIBuzSelect" placeholder="请选择" clearable @change="handleKPIBuzDetail" class="LongSingleSelect" v-if="KPIvalue === 'Business'">
                     <el-option
                         v-for="item in KPIBuzDetail"
                         :key="item"
@@ -26,7 +26,7 @@
                         :value="item">
                     </el-option>
                 </el-select>
-                <el-select v-model="DSMSelect" placeholder="请选择" @change="handleDealers" class="SingleSelect" v-if="KPIvalue === 'Business' && KPIBuzSelect !== ''">
+                <el-select v-model="DSMSelect" placeholder="请选择" clearable @change="handleDealers" class="SingleSelect" v-if="KPIvalue === 'Business' && KPIBuzSelect !== ''">
                     <el-option
                         v-for="item in DealersDetail"
                         :key="item"
