@@ -278,6 +278,7 @@ export default {
       this.KPIvalue = 'Behavior'
       this.KPISelect = ''
       this.KPIBuzSelect = ''
+      this.DSMSelect = ''
       this.drawChart('chart', seriesData, behaviorLegends, this.maxYValue, BehLegends, 'Average Score')
     },
     handleKPIType () {
