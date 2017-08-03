@@ -176,11 +176,43 @@ const seriesDataBuz = [
   }
 ]
 
+const seriesDataAmen = [
+  {
+    name: 'Business Target',
+    type: 'bar',
+    itemStyle: {
+      normal: {
+        color: 'rgba(0,0,0,0.2)'
+      }
+    },
+    label: {
+      normal: {
+        show: false
+      }
+    },
+    silent: true,
+    // barWidth: 40,
+    barGap: '-100%',
+    data: [100, 100, 100, 100, 100, 100, 100]
+  },
+  {
+    name: 'Business Completed',
+    type: 'bar',
+    // barWidth: 40,
+    itemStyle: {
+      normal: {
+        color: 'rgba(108,247,255,0.7)'
+      }
+    },
+    data: [32, 49, 35, 50, 41, 16, 62]
+  }
+]
+
 const behaviorLegends = ['Training & Coaching', 'Dealer Risk Control', 'Dealer Setup Retail', 'Dealer Setup Wholesale', 'Rapport Building', 'Other']
 const businessLegends = ['Aumen Retail Pen.', 'Retail Agility Pen.', 'Retail OL Pen.', 'Wholesale Pen.', 'Used Car Finan Pen.', 'FC Error Ratio', 'Return File Pending Ratio', 'Wechat Registration Ratio', 'Web Pos Util']
 
 const DSMS = ['DSM1', 'DSM2', 'DSM3', 'DSM4', 'DSM5', 'DSM6', 'DSM7']
-const currentLegends = ['Target', 'Completed']
+const BehLegends = ['Target', 'Completed']
 const TrainingLegends = ['Target Training', 'Completed Training']
 const RapportLegends = ['Target Rapport Building', 'Completed Rapport Building']
 const BuzLegends = ['Business Target', 'Business Completed']
@@ -205,13 +237,13 @@ export default {
       this.KPIvalue = 'Behavior'
       this.KPISelect = ''
       this.KPIBuzSelect = ''
-      this.drawChart('chart', seriesData, behaviorLegends, this.maxYValue, currentLegends, 'Average Score')
+      this.drawChart('chart', seriesData, behaviorLegends, this.maxYValue, BehLegends, 'Average Score')
     },
     handleKPIType () {
     //   console.log(this.KPIvalue)
       if (this.KPIvalue) {
         if (this.KPIvalue === 'Behavior') {
-          this.drawChart('chart', seriesData, behaviorLegends, this.maxYValue, currentLegends, 'Average Score')
+          this.drawChart('chart', seriesData, behaviorLegends, this.maxYValue, BehLegends, 'Average Score')
         } else {
           this.drawChart('chart', seriesDataBuz, businessLegends, this.maxYValue, BuzLegends, 'Average Score')
         }
@@ -229,7 +261,13 @@ export default {
       }
     },
     handleKPIBuzDetail () {
-      console.log(this.KPIBuzSelect)
+      if (this.KPIBuzSelect) {
+        if (this.KPIBuzSelect === 'Aumen Retail Pen.') {
+          this.drawChart('chart', seriesDataAmen, DSMS, this.maxYValue, BuzLegends, this.KPIBuzSelect)
+        } else {
+          this.drawChart('chart', [], DSMS, this.maxYValue, [], this.KPIBuzSelect)
+        }
+      }
     },
     drawChart (id, myseriesData, xAxisOptions, maxYValue, curLegends, yAxisName) {
       if (!this.charts) {
@@ -277,12 +315,12 @@ export default {
           ],
           series: myseriesData
         }
-      })
+      }, true)
     }
   },
   mounted () {
     this.$nextTick(function () {
-      this.drawChart('chart', seriesData, behaviorLegends, this.maxYValue, currentLegends, 'Average Score')
+      this.drawChart('chart', seriesData, behaviorLegends, this.maxYValue, BehLegends, 'Average Score')
     })
     window.onresize = () => {
       this.charts.resize()
