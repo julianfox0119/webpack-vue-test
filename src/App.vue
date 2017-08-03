@@ -27,5 +27,8 @@ export default {
   width: 100%;
   max-height: 414px;
 }
+body{
+   background-color: #999999;
+}
 </style>
 

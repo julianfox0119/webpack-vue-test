@@ -282,6 +282,9 @@ export default {
       this.drawChart('chart', seriesData, behaviorLegends, this.maxYValue, BehLegends, 'Average Score')
     },
     handleKPIType () {
+      this.KPISelect = ''
+      this.KPIBuzSelect = ''
+      this.DSMSelect = ''
     //   console.log(this.KPIvalue)
       if (this.KPIvalue) {
         if (this.KPIvalue === 'Behavior') {
@@ -338,6 +341,7 @@ export default {
               type: 'shadow'
             }
           },
+          backgroundColor: '#999999',  // 'rgba(128, 128, 128, 1)',
           legend: {
             data: curLegends
           },
