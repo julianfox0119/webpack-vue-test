@@ -79,7 +79,10 @@ const seriesDataTraining = [
     label: {
       normal: {
         show: true,
-        position: 'Top'
+        position: ['33%', -20],
+        textStyle: {
+          color: '#333333'
+        }
       }
     },
     silent: true,
@@ -112,7 +115,10 @@ const seriesDataRapport = [
     label: {
       normal: {
         show: true,
-        position: 'Top'
+        position: ['33%', -20],
+        textStyle: {
+          color: '#333333'
+        }
       }
     },
     silent: true,
@@ -160,12 +166,14 @@ export default {
     //   console.log(this.KPIvalue)
     },
     handleKPIDetail () {
-      if (this.KPISelect === 'Training & Coaching') {
-        this.drawChart('chart', seriesDataTraining, DSMS, this.maxYValue, TrainingLegends, this.KPISelect)
-      } else if (this.KPISelect === 'Rapport Building') {
-        this.drawChart('chart', seriesDataRapport, DSMS, this.maxYValue, RapportLegends, this.KPISelect)
-      } else {
-        this.drawChart('chart', [], DSMS, this.maxYValue, [], this.KPISelect)
+      if (this.KPISelect) {
+        if (this.KPISelect === 'Training & Coaching') {
+          this.drawChart('chart', seriesDataTraining, DSMS, this.maxYValue, TrainingLegends, this.KPISelect)
+        } else if (this.KPISelect === 'Rapport Building') {
+          this.drawChart('chart', seriesDataRapport, DSMS, this.maxYValue, RapportLegends, this.KPISelect)
+        } else {
+          this.drawChart('chart', [], DSMS, this.maxYValue, [], this.KPISelect)
+        }
       }
     },
     drawChart (id, myseriesData, xAxisOptions, maxYValue, curLegends, yAxisName) {
@@ -206,6 +214,7 @@ export default {
           yAxis: [
             {
               name: yAxisName,
+              nameGap: 20,
               max: 'dataMax',
               type: 'value'
             }
