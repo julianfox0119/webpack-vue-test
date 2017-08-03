@@ -300,6 +300,8 @@ export default {
         } else {
           this.drawChart('chart', [], DSMS, this.maxYValue, [], this.KPISelect)
         }
+      } else {
+        this.handleKPIType()
       }
     },
     handleKPIBuzDetail () {
@@ -309,6 +311,8 @@ export default {
         } else {
           this.drawChart('chart', [], DSMS, this.maxYValue, [], this.KPIBuzSelect)
         }
+      } else {
+        this.handleKPIDetail()
       }
     },
     handleDealers () {
@@ -318,6 +322,8 @@ export default {
         } else {
           this.drawChart('chart', [], DEALEARS, this.maxYValue, [], this.KPIBuzSelect)
         }
+      } else {
+        this.handleKPIBuzDetail()
       }
     },
     drawChart (id, myseriesData, xAxisOptions, maxYValue, curLegends, yAxisName) {
