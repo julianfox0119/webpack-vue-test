@@ -5,12 +5,12 @@
                 <el-select v-model="KPIvalue" placeholder="请选择" @change="handleKPIType" class="SingleSelect">
                     <el-option
                         v-for="item in KPITypes"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value">
+                        :key="item"
+                        :label="item"
+                        :value="item">
                     </el-option>
                 </el-select>
-                <el-select v-model="KPISelect" placeholder="请选择" @change="handleKPIDetail" class="SingleSelect">
+                <el-select v-model="KPISelect" placeholder="请选择" @change="handleKPIDetail" class="LongSingleSelect">
                     <el-option
                         v-for="item in KPIDetail"
                         :key="item"
@@ -52,7 +52,7 @@ const seriesData = [
     silent: true,
     barWidth: 40,
     barGap: '-100%',
-    data: [50, 60, 50, 40, 60, 70]
+    data: [50, 60, 50, 40, 60, 50]
   },
   {
     name: 'Completed',
@@ -63,13 +63,13 @@ const seriesData = [
         color: 'rgba(108,247,168,0.7)'
       }
     },
-    data: [12, 22, 15, 32, 42, 56]
+    data: [12, 22, 15, 32, 52, 26]
   }
 ]
 
 const seriesDataTraining = [
   {
-    name: 'Target',
+    name: 'Target Training',
     type: 'bar',
     itemStyle: {
       normal: {
@@ -88,7 +88,7 @@ const seriesDataTraining = [
     data: [50, 50, 50, 50, 50, 50, 50]
   },
   {
-    name: 'Completed',
+    name: 'Completed Training',
     type: 'bar',
     barWidth: 40,
     itemStyle: {
@@ -96,39 +96,79 @@ const seriesDataTraining = [
         color: 'rgba(108,247,168,0.7)'
       }
     },
-    data: [12, 22, 15, 32, 33, 50, 41]
+    data: [12, 9, 15, 8, 13, 16, 11]
   }
 ]
 
-const currentLegends = ['Completed', 'Target']
+const seriesDataRapport = [
+  {
+    name: 'Target Rapport Building',
+    type: 'bar',
+    itemStyle: {
+      normal: {
+        color: 'rgba(0,0,0,0.2)'
+      }
+    },
+    label: {
+      normal: {
+        show: true,
+        position: 'Top'
+      }
+    },
+    silent: true,
+    barWidth: 40,
+    barGap: '-100%',
+    data: [60, 60, 60, 60, 60, 60, 60]
+  },
+  {
+    name: 'Completed Rapport Building',
+    type: 'bar',
+    barWidth: 40,
+    itemStyle: {
+      normal: {
+        color: 'rgba(108,247,168,0.7)'
+      }
+    },
+    data: [42, 50, 45, 40, 47, 37, 43]
+  }
+]
+
+const currentLegends = ['Target', 'Completed']
+const TrainingLegends = ['Target Training', 'Completed Training']
+const RapportLegends = ['Target Rapport Building', 'Completed Rapport Building']
 
 export default {
   name: 'charts',
   data () {
     return {
-      behaviorLegends: behaviorLegends,
+    //   behaviorLegends: behaviorLegends,
       maxYValue: 100,
       activeNames: [],
       KPIDetail: behaviorLegends,
       KPIvalue: 'Behavior',
-      KPISelect: [],
-      KPITypes: [{value: 'Behavior', label: 'Behavior'}, {value: 'Business', label: 'Business'}]
+      KPISelect: '',
+      KPITypes: ['Behavior', 'Business']
     }
   },
   methods: {
     resetSelect () {
       this.KPIvalue = 'Behavior'
-      this.DSMSel = []
-      this.drawChart('chart', seriesData, behaviorLegends, this.maxYValue, this.behaviorLegends, 'Average Score')
+      this.KPISelect = ''
+      this.drawChart('chart', seriesData, behaviorLegends, this.maxYValue, currentLegends, 'Average Score')
     },
     handleKPIType () {
-      console.log(this.KPIvalue)
+    //   console.log(this.KPIvalue)
     },
     handleKPIDetail () {
-      console.log(this.KPISelect)
-      this.drawChart('chart', seriesDataTraining, DSMS, this.maxYValue, this.behaviorLegends, this.KPISelect)
+      if (this.KPISelect === 'Training & Coaching') {
+        this.drawChart('chart', seriesDataTraining, DSMS, this.maxYValue, TrainingLegends, this.KPISelect)
+      } else if (this.KPISelect === 'Rapport Building') {
+        this.drawChart('chart', seriesDataRapport, DSMS, this.maxYValue, RapportLegends, this.KPISelect)
+      } else {
+        this.drawChart('chart', [], DSMS, this.maxYValue, [], this.KPISelect)
+      }
     },
-    drawChart (id, myseriesData, xAxisOptions, maxYValue, curlegends, yAxisName) {
+    drawChart (id, myseriesData, xAxisOptions, maxYValue, curLegends, yAxisName) {
       if (!this.charts) {
         this.charts = echarts.init(document.getElementById(id))
       }
@@ -141,7 +181,7 @@ export default {
             }
           },
           legend: {
-            data: currentLegends
+            data: curLegends
           },
           label: {
             normal: {
@@ -177,7 +217,7 @@ export default {
   },
   mounted () {
     this.$nextTick(function () {
-      this.drawChart('chart', seriesData, behaviorLegends, this.maxYValue, this.behaviorLegends, 'Average Score')
+      this.drawChart('chart', seriesData, behaviorLegends, this.maxYValue, currentLegends, 'Average Score')
     })
     window.onresize = () => {
       this.charts.resize()
@@ -200,7 +240,7 @@ export default {
 .SingleSelect{
   width: 110px;
 }
-.MultiSelect{
+.LongSingleSelect{
   width: 230px;
 }
 .filterSwitcher{
