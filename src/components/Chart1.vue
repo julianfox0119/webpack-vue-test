@@ -50,33 +50,43 @@ const seriesData = [
     type: 'bar',
     itemStyle: {
       normal: {
-        color: 'rgba(0,0,0,0.2)'
+        color: 'rgba(0,0,0,0.1)'
       }
     },
     label: {
       normal: {
         show: true,
-        position: ['33%', -20],
+        position: ['35%', -25],
         textStyle: {
-          color: '#333333'
+          fontSize: 20,
+          fontWeight: 'bold',
+          color: 'rgba(108,247,168,0.9)'
         }
       }
     },
     silent: true,
-    // barWidth: 40,
     barGap: '-100%',
     data: [50, 60, 50, 40, 60, 50]
   },
   {
     name: 'Behavior Completed',
     type: 'bar',
-    // barWidth: 40,
     itemStyle: {
       normal: {
-        color: 'rgba(108,247,168,0.7)'
+        color: 'rgba(108,247,168,0.8)'
       }
     },
-    data: [12, 22, 15, 32, 52, 26]
+    label: {
+      normal: {
+        show: true,
+        position: 'insideBottom',
+        textStyle: {
+          fontSize: 20,
+          fontWeight: 'bold'
+        }
+      }
+    },
+    data: [12, 22, 15, 32, 60, 26]
   }
 ]
 
@@ -92,24 +102,34 @@ const seriesDataTraining = [
     label: {
       normal: {
         show: true,
-        position: ['33%', -20],
+        position: ['35%', -25],
         textStyle: {
-          color: '#333333'
+          fontSize: 20,
+          fontWeight: 'bold',
+          color: 'rgba(108,247,168,0.9)'
         }
       }
     },
     silent: true,
-    // barWidth: 40,
     barGap: '-100%',
     data: [50, 50, 50, 50, 50, 50, 50]
   },
   {
     name: 'Behavior Completed',
     type: 'bar',
-    // barWidth: 40,
     itemStyle: {
       normal: {
-        color: 'rgba(108,247,168,0.7)'
+        color: 'rgba(108,247,168,0.8)'
+      }
+    },
+    label: {
+      normal: {
+        show: true,
+        position: 'insideBottom',
+        textStyle: {
+          fontSize: 20,
+          fontWeight: 'bold'
+        }
       }
     },
     data: [12, 9, 15, 8, 13, 16, 11]
@@ -128,24 +148,34 @@ const seriesDataRapport = [
     label: {
       normal: {
         show: true,
-        position: ['33%', -20],
+        position: ['35%', -25],
         textStyle: {
-          color: '#333333'
+          fontSize: 20,
+          fontWeight: 'bold',
+          color: 'rgba(108,247,168,0.9)'
         }
       }
     },
     silent: true,
-    // barWidth: 40,
     barGap: '-100%',
     data: [60, 60, 60, 60, 60, 60, 60]
   },
   {
     name: 'Behavior Completed',
     type: 'bar',
-    // barWidth: 40,
     itemStyle: {
       normal: {
-        color: 'rgba(108,247,168,0.7)'
+        color: 'rgba(108,247,168,0.8)'
+      }
+    },
+    label: {
+      normal: {
+        show: true,
+        position: 'insideBottom',
+        textStyle: {
+          fontSize: 20,
+          fontWeight: 'bold'
+        }
       }
     },
     data: [42, 50, 45, 40, 47, 37, 43]
@@ -167,17 +197,25 @@ const seriesDataBuz = [
       }
     },
     silent: true,
-    // barWidth: 30,
     barGap: '-100%',
     data: [100, 100, 100, 100, 100, 100, 100, 100, 100]
   },
   {
     name: 'Business Completed',
     type: 'bar',
-    // barWidth: 30,
     itemStyle: {
       normal: {
         color: 'rgba(108,247,255,0.7)'
+      }
+    },
+    label: {
+      normal: {
+        show: true,
+        position: 'insideBottom',
+        textStyle: {
+          fontSize: 20,
+          fontWeight: 'bold'
+        }
       }
     },
     data: [42, 50, 45, 40, 47, 37, 43, 60, 83]
@@ -199,17 +237,25 @@ const seriesDataAmen = [
       }
     },
     silent: true,
-    // barWidth: 40,
     barGap: '-100%',
     data: [100, 100, 100, 100, 100, 100, 100]
   },
   {
     name: 'Business Completed',
     type: 'bar',
-    // barWidth: 40,
     itemStyle: {
       normal: {
         color: 'rgba(108,247,255,0.7)'
+      }
+    },
+    label: {
+      normal: {
+        show: true,
+        position: 'insideBottom',
+        textStyle: {
+          fontSize: 20,
+          fontWeight: 'bold'
+        }
       }
     },
     data: [12, 49, 35, 50, 41, 26, 62]
@@ -231,17 +277,25 @@ const seriesDataDMS1 = [
       }
     },
     silent: true,
-    // barWidth: 30,
     barGap: '-100%',
     data: [100, 100, 100]
   },
   {
     name: 'Business Completed',
     type: 'bar',
-    // barWidth: 30,
     itemStyle: {
       normal: {
         color: 'rgba(255,147,155,0.7)'
+      }
+    },
+    label: {
+      normal: {
+        show: true,
+        position: 'insideBottom',
+        textStyle: {
+          fontSize: 20,
+          fontWeight: 'bold'
+        }
       }
     },
     data: [12, 15, 9]
