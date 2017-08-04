@@ -397,7 +397,11 @@ export default {
           },
           backgroundColor: '#999999',  // 'rgba(128, 128, 128, 1)',
           legend: {
-            data: curLegends
+            data: curLegends,
+            textStyle: {
+              color: 'white',
+              fontWeight: 'bold'
+            }
           },
           label: {
             normal: {
