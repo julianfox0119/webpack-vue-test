@@ -212,7 +212,7 @@ const seriesDataAmen = [
         color: 'rgba(108,247,255,0.7)'
       }
     },
-    data: [32, 49, 35, 50, 41, 16, 62]
+    data: [12, 49, 35, 50, 41, 26, 62]
   }
 ]
 
@@ -244,7 +244,7 @@ const seriesDataDMS1 = [
         color: 'rgba(255,147,155,0.7)'
       }
     },
-    data: [42, 10, 45]
+    data: [12, 15, 9]
   }
 ]
 
