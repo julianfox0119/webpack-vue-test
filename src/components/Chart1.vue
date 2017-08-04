@@ -50,7 +50,7 @@ const seriesData = [
     type: 'bar',
     itemStyle: {
       normal: {
-        color: 'rgba(0,0,0,0.1)'
+        color: 'rgba(0,0,0,0.2)'
       }
     },
     label: {
@@ -411,9 +411,16 @@ export default {
             {
               type: 'category',
               data: xAxisOptions,
+              nameTextStyle: {
+                color: 'white'
+              },
               axisLabel: {
                 // rotate: 20,
                 interval: 0,
+                textStyle: {
+                  color: 'white',
+                  fontWeight: 'bold'
+                },
                 formatter: function (val) {
                   return val.split(' ').join('\n')
                 }
@@ -425,7 +432,16 @@ export default {
               name: yAxisName,
               nameGap: 20,
               max: 'dataMax',
-              type: 'value'
+              type: 'value',
+              nameTextStyle: {
+                color: 'white'
+              },
+              axisLabel: {
+                textStyle: {
+                  color: 'white',
+                  fontWeight: 'bold'
+                }
+              }
             }
           ],
           series: myseriesData
